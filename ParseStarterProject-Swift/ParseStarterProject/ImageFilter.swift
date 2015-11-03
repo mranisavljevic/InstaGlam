@@ -45,8 +45,17 @@ class Filter {
     class func applyGlassLozengeFilter(image: UIImage, completion: (filteredImage: UIImage?, name: String) -> Void) {
         let filterName = Constants.glassLozengeFilter
         let displayName = "Glass Lozenge?"
+        let input0x = Float((rand() % 600))
+        let input0y = Float((rand() % 600))
+        let vector0 = CIVector(x: CGFloat(input0x), y: CGFloat(input0y))
+        let input1x = Float((rand() % 600))
+        let input1y = Float((rand() % 600))
+        let vector1 = CIVector(x: CGFloat(input1x), y: CGFloat(input1y))
+        var parameters = [String : AnyObject]()
+        parameters["inputPoint0"] = vector0
+        parameters["inputPoint1"] = vector1
         
-        if let filteredImage = self.makeFilter(filterName, parameters: nil, image: image) {
+        if let filteredImage = self.makeFilter(filterName, parameters: parameters, image: image) {
             completion(filteredImage: filteredImage, name: displayName)
         }
     }
@@ -76,8 +85,15 @@ class Filter {
     class func applyHoleDistortion(image: UIImage, completion: (filteredImage: UIImage?, name: String) -> Void) {
         let filterName = Constants.holeDistortionFilter
         let displayName = "Hole Distortion"
+        let inputCenterX = CGFloat((rand() % 600))
+        let inputCenterY = CGFloat((rand() % 600))
+        let holeRadius = CGFloat((rand() % 600))
+        let centerVector = CIVector(x: inputCenterX, y: inputCenterY)
+        var parameters = [String : AnyObject]()
+        parameters["inputCenter"] = centerVector
+        parameters["inputRadius"] = holeRadius
         
-        if let filteredImage = self.makeFilter(filterName, parameters: nil, image: image) {
+        if let filteredImage = self.makeFilter(filterName, parameters: parameters, image: image) {
             completion(filteredImage: filteredImage, name: displayName)
         }
     }
