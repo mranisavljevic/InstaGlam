@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -39,10 +38,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zN3-8K-iGb">
-                                <rect key="frame" x="60" y="60" width="480" height="480"/>
+                                <rect key="frame" x="150" y="28" width="300" height="300"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="Hzt-jl-kPJ"/>
+                                    <constraint firstAttribute="height" constant="300" id="eZw-6N-DYD"/>
+                                    <constraint firstAttribute="width" secondItem="zN3-8K-iGb" secondAttribute="height" multiplier="1:1" id="fzl-Gp-NbV"/>
                                     <constraint firstAttribute="width" secondItem="zN3-8K-iGb" secondAttribute="height" multiplier="569:527" id="hju-69-B5P"/>
                                 </constraints>
                                 <variation key="default">
@@ -51,11 +53,27 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jzp-NG-A9m">
-                                <rect key="frame" x="60" y="60" width="480" height="480"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jzp-NG-A9m" userLabel="Select Image">
+                                <rect key="frame" x="150" y="28" width="300" height="300"/>
                                 <animations/>
                                 <connections>
                                     <action selector="imagePickerButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="696-do-g3k"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="scS-S1-1a0">
+                                <rect key="frame" x="283" y="336" width="34" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vvg-pX-Yhk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5X4-ZH-No1">
+                                <rect key="frame" x="257.5" y="513" width="85" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Apply Filters"/>
+                                <connections>
+                                    <action selector="filtersButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KF3-VE-xMP"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -64,12 +82,14 @@
                         <constraints>
                             <constraint firstItem="Jzp-NG-A9m" firstAttribute="centerY" secondItem="zN3-8K-iGb" secondAttribute="centerY" id="6ha-df-kAW"/>
                             <constraint firstItem="zN3-8K-iGb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9t6-0A-jgO"/>
+                            <constraint firstItem="scS-S1-1a0" firstAttribute="centerX" secondItem="Jzp-NG-A9m" secondAttribute="centerX" id="AcD-SH-itv"/>
                             <constraint firstItem="Jzp-NG-A9m" firstAttribute="width" secondItem="zN3-8K-iGb" secondAttribute="width" id="B7f-DE-KuX"/>
+                            <constraint firstItem="scS-S1-1a0" firstAttribute="top" secondItem="Jzp-NG-A9m" secondAttribute="bottom" constant="8" id="HuW-yh-fpS"/>
                             <constraint firstItem="Jzp-NG-A9m" firstAttribute="height" secondItem="zN3-8K-iGb" secondAttribute="height" id="JKl-dz-OKQ"/>
-                            <constraint firstItem="zN3-8K-iGb" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.8" id="XnG-kN-kCK"/>
+                            <constraint firstItem="5X4-ZH-No1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="N5e-d2-iLq"/>
                             <constraint firstItem="Jzp-NG-A9m" firstAttribute="centerX" secondItem="zN3-8K-iGb" secondAttribute="centerX" id="a62-Iw-DfM"/>
-                            <constraint firstItem="zN3-8K-iGb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="frj-v3-Trf"/>
-                            <constraint firstItem="zN3-8K-iGb" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="l7w-Cv-ROn"/>
+                            <constraint firstItem="zN3-8K-iGb" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="caA-cn-HP4"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="5X4-ZH-No1" secondAttribute="bottom" constant="8" id="hhI-f0-IBr"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Image" image="Image" id="oB8-Wz-zrj"/>

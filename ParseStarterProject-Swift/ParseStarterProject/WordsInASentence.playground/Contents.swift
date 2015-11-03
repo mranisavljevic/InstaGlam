@@ -19,3 +19,11 @@ func countWords(sentence: String) -> Int {
 }
 
 countWords(sentence)
+
+var nums = [Int]()
+for i in (0...600) {
+    nums.append(i)
+}
+
+nums[600]
+

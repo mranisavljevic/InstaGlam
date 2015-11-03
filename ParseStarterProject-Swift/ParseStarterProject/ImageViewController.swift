@@ -37,6 +37,61 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
     }
     
+    @IBAction func saveButtonPressed(sender: UIButton) {
+        if let image = self.imageView.image {
+            ParseAPI.saveImage(image)
+        }
+    }
+    
+    @IBAction func filtersButtonPressed(sender: UIButton) {
+        if let image = self.imageView.image {
+            let alertController = UIAlertController(title: "Filter", message: "Pick a wacky filter.", preferredStyle: .ActionSheet)
+            let ghostifyAction = UIAlertAction(title: "Ghostify", style: .Default, handler: { (alert) -> Void in
+                Filter.applyGhostFilter(image, completion: { (filteredImage, name) -> Void in
+                    if let filteredImage = filteredImage {
+                        self.imageView.image = filteredImage
+                    }
+                })
+            })
+            let glassLozengeAction = UIAlertAction(title: "Glass Lozenge?", style: .Default, handler: { (alert) -> Void in
+                Filter.applyGlassLozengeFilter(image, completion: { (filteredImage, name) -> Void in
+                    if let filteredImage = filteredImage {
+                        self.imageView.image = filteredImage
+                    }
+                })
+            })
+//            let lenticularHaloAction = UIAlertAction(title: "Lenticular Halo", style: .Default, handler: { (alert) -> Void in
+//                Filter.applyLenticularHalo(image, completion: { (filteredImage, name) -> Void in
+//                    if let filteredImage = filteredImage {
+//                        self.imageView.image = filteredImage
+//                    }
+//                })
+//            })
+            let bumpDistortionAction = UIAlertAction(title: "Bump Distortion", style: .Default, handler: { (alert) -> Void in
+                Filter.applyBumpDistortionLinear(image, completion: { (filteredImage, name) -> Void in
+                    if let filteredImage = filteredImage {
+                        self.imageView.image = filteredImage
+                    }
+                })
+            })
+            let holeDistortionAction = UIAlertAction(title: "Hole Distortion", style: .Default, handler: { (alert) -> Void in
+                Filter.applyHoleDistortion(image, completion: { (filteredImage, name) -> Void in
+                    if let filteredImage = filteredImage {
+                        self.imageView.image = filteredImage
+                    }
+                })
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            alertController.addAction(ghostifyAction)
+            alertController.addAction(glassLozengeAction)
+//            alertController.addAction(lenticularHaloAction)
+            alertController.addAction(bumpDistortionAction)
+            alertController.addAction(holeDistortionAction)
+            alertController.addAction(cancelAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,19 +104,8 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        let parseImageClass = PFObject(className: Constants.kParseImageClass)
-        if let imageData = UIImageJPEGRepresentation(image, 1.0) {
-            let imageFile = PFFile(data: imageData)
-            parseImageClass["imageData"] = imageFile
-            parseImageClass.saveInBackgroundWithBlock { (saved, error) -> Void in
-                if saved {
-                    print("Successfully saved.")
-                } else {
-                    print("Error code: \(error?.code)")
-                }
-            }
-        }
-        self.imageView.image = image
+        let resizedImage = UIImage.resizeImage(image, size: Constants.imagePreferredSize)
+        self.imageView.image = resizedImage
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
