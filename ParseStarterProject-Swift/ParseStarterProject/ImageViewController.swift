@@ -49,7 +49,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        let parseImageClass = PFObject(className: "Image")
+        let parseImageClass = PFObject(className: Constants.kParseImageClass)
         if let imageData = UIImageJPEGRepresentation(image, 1.0) {
             let imageFile = PFFile(data: imageData)
             parseImageClass["imageData"] = imageFile

@@ -19,6 +19,7 @@
 		90045B051BE80B1F00862357 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90045B041BE80B1F00862357 /* LaunchScreen.storyboard */; };
 		90045B071BE80CAC00862357 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90045B061BE80CAC00862357 /* Constants.swift */; };
 		90045B091BE8147500862357 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90045B081BE8147500862357 /* ImageViewController.swift */; };
+		90B43DDE1BE8466900DD753E /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B43DDD1BE8466900DD753E /* TimelineViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		90045B041BE80B1F00862357 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90045B061BE80CAC00862357 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		90045B081BE8147500862357 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		90B43DDD1BE8466900DD753E /* TimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimelineViewController.swift; path = ../TimelineViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				90045B081BE8147500862357 /* ImageViewController.swift */,
+				90B43DDD1BE8466900DD753E /* TimelineViewController.swift */,
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
 				90045B061BE80CAC00862357 /* Constants.swift */,
 				814C3AC61B69877600E307BB /* Main.storyboard */,
@@ -211,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
+				90B43DDE1BE8466900DD753E /* TimelineViewController.swift in Sources */,
 				90045B091BE8147500862357 /* ImageViewController.swift in Sources */,
 				90045B071BE80CAC00862357 /* Constants.swift in Sources */,
 			);

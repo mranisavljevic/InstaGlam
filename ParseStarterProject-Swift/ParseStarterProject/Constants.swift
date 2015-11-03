@@ -11,4 +11,5 @@ import Foundation
 struct Constants {
     static let kParseApplicationId = "sPdTfaOBYSCRULf5wk5j1gk3O0LuAL2VrOpbeyIQ"
     static let kParseClientKey = "2ZIlRNnjZDIUcYcAmJN3ETcsbERoY9R3LXD39L0F"
+    static let kParseImageClass = "Image"
 }
