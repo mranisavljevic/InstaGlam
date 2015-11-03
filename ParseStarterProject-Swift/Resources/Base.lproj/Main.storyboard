@@ -3,12 +3,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Image View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="InstaGlam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ImageViewController" customModule="InstaGlam" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,9 +18,43 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zN3-8K-iGb">
+                                <rect key="frame" x="60" y="60" width="480" height="480"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="zN3-8K-iGb" secondAttribute="height" multiplier="569:527" id="hju-69-B5P"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="hju-69-B5P"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jzp-NG-A9m">
+                                <rect key="frame" x="60" y="60" width="480" height="480"/>
+                                <animations/>
+                                <connections>
+                                    <action selector="imagePickerButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="696-do-g3k"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Jzp-NG-A9m" firstAttribute="centerY" secondItem="zN3-8K-iGb" secondAttribute="centerY" id="6ha-df-kAW"/>
+                            <constraint firstItem="zN3-8K-iGb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9t6-0A-jgO"/>
+                            <constraint firstItem="Jzp-NG-A9m" firstAttribute="width" secondItem="zN3-8K-iGb" secondAttribute="width" id="B7f-DE-KuX"/>
+                            <constraint firstItem="Jzp-NG-A9m" firstAttribute="height" secondItem="zN3-8K-iGb" secondAttribute="height" id="JKl-dz-OKQ"/>
+                            <constraint firstItem="zN3-8K-iGb" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.8" id="XnG-kN-kCK"/>
+                            <constraint firstItem="Jzp-NG-A9m" firstAttribute="centerX" secondItem="zN3-8K-iGb" secondAttribute="centerX" id="a62-Iw-DfM"/>
+                            <constraint firstItem="zN3-8K-iGb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="frj-v3-Trf"/>
+                            <constraint firstItem="zN3-8K-iGb" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="l7w-Cv-ROn"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="zN3-8K-iGb" id="n4Z-i7-1x1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
