@@ -22,6 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func setUpParse() {
-        Parse.setApplicationId(Constants.kParseApplicationId, clientKey: Constants.kParseClientKey)
+        Parse.setApplicationId(kParseApplicationId, clientKey: kParseClientKey)
     }
 }

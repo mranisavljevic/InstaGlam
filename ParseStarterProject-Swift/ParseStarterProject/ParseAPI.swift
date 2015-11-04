@@ -13,7 +13,7 @@ class ParseAPI {
     
     class func saveImage(image: UIImage?) {
         if let image = image {
-            let parseImageClass = PFObject(className: Constants.kParseImageClass)
+            let parseImageClass = PFObject(className: kParseImageClass)
             if let imageData = UIImageJPEGRepresentation(image, 1.0) {
                 let imageFile = PFFile(data: imageData)
                 parseImageClass["imageData"] = imageFile

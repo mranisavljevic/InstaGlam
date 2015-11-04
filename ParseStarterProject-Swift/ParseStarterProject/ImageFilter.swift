@@ -77,7 +77,7 @@ class Filter {
     }
     
     class func applyGhostFilter(image: UIImage, completion: (filteredImage: UIImage?, name: String) -> Void) {
-        let filterName = Constants.colorInvertFilter
+        let filterName = kColorInvertFilter
         let displayName = "Ghostify"
         
         if let filteredImage = self.makeFilter(withImage: image, name: filterName, parameters: nil) {
@@ -86,7 +86,7 @@ class Filter {
     }
     
     class func applyCrystallizeFilter(image: UIImage, completion: (filteredImage: UIImage?, name: String) -> Void) {
-        let filterName = Constants.crystallizeFilter
+        let filterName = kCrystallizeFilter
         let displayName = "Crystallize"
         
         if let filteredImage = self.makeFilter(withImage: image, name: filterName, parameters: nil) {
@@ -95,7 +95,7 @@ class Filter {
     }
     
     class func applyProcessFilter(image: UIImage, completion: (filteredImage: UIImage?, name: String) -> Void) {
-        let filterName = Constants.colorProcessFilter
+        let filterName = kColorProcessFilter
         let displayName = "Cross Process"
         
         if let filteredImage = self.makeFilter(withImage: image, name: filterName, parameters: nil) {
@@ -104,7 +104,7 @@ class Filter {
     }
     
     class func applyEdgesFilter(image: UIImage, completion: (filteredImage: UIImage?, name: String) -> Void) {
-        let filterName = Constants.edgesFilter
+        let filterName = kEdgesFilter
         let displayName = "Edges"
         let inputIntensity = CGFloat(10.0)
         var parameters = [String : AnyObject]()
@@ -116,7 +116,7 @@ class Filter {
     }
     
     class func applyGlassLozengeFilter(image: UIImage, completion: (filteredImage: UIImage?, name: String) -> Void) {
-        let filterName = Constants.glassLozengeFilter
+        let filterName = kGlassLozengeFilter
         let displayName = "Glass Lozenge"
         let input0x = CGFloat((rand() % 600))
         let input0y = CGFloat((rand() % 600))
@@ -134,7 +134,7 @@ class Filter {
     }
     
     class func applyLenticularHalo(image: UIImage, completion: (filteredImage: UIImage?, name: String) -> Void) {
-        let filterName = Constants.lenticularHaloFilter
+        let filterName = kLenticularHaloFilter
         let displayName = "Lenticular Halo"
         let color = CIColor(red: 1.0, green: 1.0, blue: 1.0)
         let inputCenterX = CGFloat((rand() % 600))
@@ -154,7 +154,7 @@ class Filter {
     }
     
     class func blendHalo(image: UIImage, backgroundImage: UIImage, completion: (filteredImage: UIImage?, name: String) -> Void) {
-        let blendName = Constants.screenBlendMode
+        let blendName = kScreenBlendMode
         let displayName = "Screen Blend"
         if let blendedImage = self.blendPhotos(blendName, image: image, backgroundImage: backgroundImage) {
             completion(filteredImage: blendedImage, name: displayName)
@@ -162,7 +162,7 @@ class Filter {
     }
     
     class func applyBumpDistortionLinear(image: UIImage, completion: (filteredImage: UIImage?, name: String) -> Void) {
-        let filterName = Constants.bumpDistortionLinearFilter
+        let filterName = kBumpDistortionLinearFilter
         let displayName = "Linear Bump"
         let inputCenterX = CGFloat((rand() % 600))
         let inputCenterY = CGFloat((rand() % 600))
@@ -182,7 +182,7 @@ class Filter {
     }
     
     class func applyHoleDistortion(image: UIImage, completion: (filteredImage: UIImage?, name: String) -> Void) {
-        let filterName = Constants.holeDistortionFilter
+        let filterName = kHoleDistortionFilter
         let displayName = "Hole Distortion"
         let inputCenterX = CGFloat((rand() % 600))
         let inputCenterY = CGFloat((rand() % 600))

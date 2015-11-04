@@ -139,7 +139,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        let resizedImage = UIImage.resizeImage(image, size: Constants.imagePreferredSize)
+        let resizedImage = UIImage.resizeImage(image, size: kImagePreferredSize)
         self.imageView.image = resizedImage
         self.dismissViewControllerAnimated(true, completion: nil)
     }

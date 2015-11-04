@@ -104,7 +104,7 @@
         <!--Timeline-->
         <scene sceneID="XhA-33-9Ox">
             <objects>
-                <viewController id="Aym-WJ-Kmz" customClass="TimelineViewController" customModule="InstaGlam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Aym-WJ-Kmz" customClass="GalleryCollectionViewController" customModule="InstaGlam" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="STm-Vn-WCh"/>
                         <viewControllerLayoutGuide type="bottom" id="shW-Y7-f7l"/>
@@ -113,14 +113,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NaL-Eb-1lz">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9cO-tt-8MD">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
                                 <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bQT-3O-eP4">
+                                    <size key="itemSize" width="150" height="150"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GalleryCollectionViewCell" id="5d3-in-HBV" customClass="GalleryCollectionViewCell" customModule="InstaGlam" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bp9-hx-6H8">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                    <animations/>
+                                                </imageView>
+                                            </subviews>
+                                            <animations/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstItem="bp9-hx-6H8" firstAttribute="top" secondItem="5d3-in-HBV" secondAttribute="top" id="EiC-NF-83z"/>
+                                            <constraint firstAttribute="bottom" secondItem="bp9-hx-6H8" secondAttribute="bottom" id="Zt2-s8-xCe"/>
+                                            <constraint firstAttribute="trailing" secondItem="bp9-hx-6H8" secondAttribute="trailing" id="kY9-t9-AnY"/>
+                                            <constraint firstItem="bp9-hx-6H8" firstAttribute="leading" secondItem="5d3-in-HBV" secondAttribute="leading" id="m2M-dK-jjG"/>
+                                        </constraints>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="9cO-tt-8MD" secondAttribute="trailing" id="A2c-bu-aMj"/>
+                            <constraint firstItem="9cO-tt-8MD" firstAttribute="leading" secondItem="Q3X-Yf-0D3" secondAttribute="leading" id="D6K-PO-NQn"/>
+                            <constraint firstItem="9cO-tt-8MD" firstAttribute="top" secondItem="STm-Vn-WCh" secondAttribute="bottom" id="OEl-2o-fz8"/>
+                            <constraint firstItem="shW-Y7-f7l" firstAttribute="top" secondItem="9cO-tt-8MD" secondAttribute="bottom" id="kI0-1T-Q2M"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Timeline" id="Saz-5Q-zXs"/>
                 </viewController>
