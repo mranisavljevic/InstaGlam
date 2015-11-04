@@ -21,4 +21,5 @@ struct Constants {
     static let screenBlendMode = "CIScreenBlendMode"
     static let colorProcessFilter = "CIPhotoEffectProcess"
     static let crystallizeFilter = "CICrystallize"
+    static let edgesFilter = "CIEdges"
 }

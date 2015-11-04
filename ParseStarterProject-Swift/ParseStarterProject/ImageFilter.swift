@@ -103,9 +103,21 @@ class Filter {
         }
     }
     
+    class func applyEdgesFilter(image: UIImage, completion: (filteredImage: UIImage?, name: String) -> Void) {
+        let filterName = Constants.edgesFilter
+        let displayName = "Edges"
+        let inputIntensity = CGFloat(10.0)
+        var parameters = [String : AnyObject]()
+        parameters["inputIntensity"] = inputIntensity
+        
+        if let filteredImage = self.makeFilter(withImage: image, name: filterName, parameters: parameters) {
+            completion(filteredImage: filteredImage, name: displayName)
+        }
+    }
+    
     class func applyGlassLozengeFilter(image: UIImage, completion: (filteredImage: UIImage?, name: String) -> Void) {
         let filterName = Constants.glassLozengeFilter
-        let displayName = "Glass Lozenge?"
+        let displayName = "Glass Lozenge"
         let input0x = CGFloat((rand() % 600))
         let input0y = CGFloat((rand() % 600))
         let vector0 = CIVector(x: input0x, y: input0y)
@@ -137,7 +149,6 @@ class Filter {
         parameters["inputHaloWidth"] = inputWidth
         
         if let drawnImage = self.makeFilter(filterName, parameters: parameters) {
-            print("Center: \(parameters["inputCenter"])")
             completion(filteredImage: drawnImage, name: displayName)
         }
     }

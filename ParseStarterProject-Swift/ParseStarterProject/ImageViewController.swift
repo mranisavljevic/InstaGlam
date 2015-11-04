@@ -15,6 +15,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
 
     @IBOutlet weak var imageView: UIImageView!
     @IBAction func imagePickerButton(sender: UIButton) {
+        imagePickerController.allowsEditing = true
         if UIImagePickerController.isSourceTypeAvailable(.Camera) {
             let imagePickerAction = UIAlertController(title: "Choose Source", message: "Please choose your image source.", preferredStyle: .ActionSheet)
             let cameraAction = UIAlertAction(title: "Camera", style: .Default) { (alert) -> Void in
@@ -53,6 +54,13 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
             })
             let crossProcessAction = UIAlertAction(title: "Cross Process", style: .Default, handler: { (alert) -> Void in
                 Filter.applyProcessFilter(image, completion: { (filteredImage, name) -> Void in
+                    if let filteredImage = filteredImage {
+                        self.imageView.image = filteredImage
+                    }
+                })
+            })
+            let edgesAction = UIAlertAction(title: "Edges", style: .Default, handler: { (alert) -> Void in
+                Filter.applyEdgesFilter(image, completion: { (filteredImage, name) -> Void in
                     if let filteredImage = filteredImage {
                         self.imageView.image = filteredImage
                     }
@@ -100,6 +108,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
             let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
             alertController.addAction(ghostifyAction)
             alertController.addAction(crossProcessAction)
+            alertController.addAction(edgesAction)
             alertController.addAction(crystallizeAction)
             alertController.addAction(glassLozengeAction)
             alertController.addAction(lenticularHaloAction)
@@ -114,6 +123,14 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePickerController.delegate = self
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if self.imageView.image == nil {
+            let defaultImage = UIImage(named: "Logo")
+            self.imageView.image = defaultImage
+        }
     }
 
     override func didReceiveMemoryWarning() {
