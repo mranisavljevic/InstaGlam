@@ -15,7 +15,10 @@ struct Constants {
     static let imagePreferredSize = CGSize(width: 600, height: 600)
     static let colorInvertFilter = "CIColorInvert"
     static let glassLozengeFilter = "CIGlassLozenge"
-//    static let lenticularHaloFilter = "CILenticularHaloGenerator"
+    static let lenticularHaloFilter = "CILenticularHaloGenerator"
     static let bumpDistortionLinearFilter = "CIBumpDistortionLinear"
     static let holeDistortionFilter = "CIHoleDistortion"
+    static let screenBlendMode = "CIScreenBlendMode"
+    static let colorProcessFilter = "CIPhotoEffectProcess"
+    static let crystallizeFilter = "CICrystallize"
 }

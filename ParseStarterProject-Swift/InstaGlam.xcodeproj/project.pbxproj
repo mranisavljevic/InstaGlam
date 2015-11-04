@@ -19,6 +19,7 @@
 		90045B051BE80B1F00862357 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90045B041BE80B1F00862357 /* LaunchScreen.storyboard */; };
 		90045B071BE80CAC00862357 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90045B061BE80CAC00862357 /* Constants.swift */; };
 		90045B091BE8147500862357 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90045B081BE8147500862357 /* ImageViewController.swift */; };
+		904411891BE9A5FA003CEBC2 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904411881BE9A5FA003CEBC2 /* Status.swift */; };
 		90B43DDE1BE8466900DD753E /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B43DDD1BE8466900DD753E /* TimelineViewController.swift */; };
 		90B43DE01BE954A500DD753E /* ParseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B43DDF1BE954A500DD753E /* ParseAPI.swift */; };
 		90B43DE21BE957F200DD753E /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B43DE11BE957F200DD753E /* UIImageExtensions.swift */; };
@@ -43,6 +44,7 @@
 		90045B041BE80B1F00862357 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90045B061BE80CAC00862357 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		90045B081BE8147500862357 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		904411881BE9A5FA003CEBC2 /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		90B43DDD1BE8466900DD753E /* TimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimelineViewController.swift; path = ../TimelineViewController.swift; sourceTree = "<group>"; };
 		90B43DDF1BE954A500DD753E /* ParseAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPI.swift; sourceTree = "<group>"; };
 		90B43DE11BE957F200DD753E /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				90B43DE31BE95ABD00DD753E /* ImageFilter.swift */,
 				90B43DDD1BE8466900DD753E /* TimelineViewController.swift */,
 				81BA814A1A49DA1800E65899 /* AppDelegate.swift */,
+				904411881BE9A5FA003CEBC2 /* Status.swift */,
 				90B43DE11BE957F200DD753E /* UIImageExtensions.swift */,
 				90B43DDF1BE954A500DD753E /* ParseAPI.swift */,
 				90045B061BE80CAC00862357 /* Constants.swift */,
@@ -227,6 +230,7 @@
 				90B43DDE1BE8466900DD753E /* TimelineViewController.swift in Sources */,
 				90B43DE21BE957F200DD753E /* UIImageExtensions.swift in Sources */,
 				90045B091BE8147500862357 /* ImageViewController.swift in Sources */,
+				904411891BE9A5FA003CEBC2 /* Status.swift in Sources */,
 				90045B071BE80CAC00862357 /* Constants.swift in Sources */,
 				90B43DE41BE95ABD00DD753E /* ImageFilter.swift in Sources */,
 			);
@@ -339,6 +343,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.creeperspeak.InstaGlam;
 				PRODUCT_NAME = InstaGlam;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -355,6 +360,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.creeperspeak.InstaGlam;
 				PRODUCT_NAME = InstaGlam;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

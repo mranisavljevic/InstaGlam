@@ -7,14 +7,11 @@
 //
 
 import UIKit
-
 import Parse
 
 class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let imagePickerController = UIImagePickerController()
-    
-    
 
     @IBOutlet weak var imageView: UIImageView!
     @IBAction func imagePickerButton(sender: UIButton) {
@@ -46,6 +43,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     @IBAction func filtersButtonPressed(sender: UIButton) {
         if let image = self.imageView.image {
             let alertController = UIAlertController(title: "Filter", message: "Pick a wacky filter.", preferredStyle: .ActionSheet)
+            
             let ghostifyAction = UIAlertAction(title: "Ghostify", style: .Default, handler: { (alert) -> Void in
                 Filter.applyGhostFilter(image, completion: { (filteredImage, name) -> Void in
                     if let filteredImage = filteredImage {
@@ -53,20 +51,38 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
                     }
                 })
             })
-            let glassLozengeAction = UIAlertAction(title: "Glass Lozenge?", style: .Default, handler: { (alert) -> Void in
+            let crossProcessAction = UIAlertAction(title: "Cross Process", style: .Default, handler: { (alert) -> Void in
+                Filter.applyProcessFilter(image, completion: { (filteredImage, name) -> Void in
+                    if let filteredImage = filteredImage {
+                        self.imageView.image = filteredImage
+                    }
+                })
+            })
+            let crystallizeAction = UIAlertAction(title: "Crystallize", style: .Default, handler: { (alert) -> Void in
+                Filter.applyCrystallizeFilter(image, completion: { (filteredImage, name) -> Void in
+                    if let filteredImage = filteredImage {
+                        self.imageView.image = filteredImage
+                    }
+                })
+            })
+            let glassLozengeAction = UIAlertAction(title: "Glass Lozenge", style: .Default, handler: { (alert) -> Void in
                 Filter.applyGlassLozengeFilter(image, completion: { (filteredImage, name) -> Void in
                     if let filteredImage = filteredImage {
                         self.imageView.image = filteredImage
                     }
                 })
             })
-//            let lenticularHaloAction = UIAlertAction(title: "Lenticular Halo", style: .Default, handler: { (alert) -> Void in
-//                Filter.applyLenticularHalo(image, completion: { (filteredImage, name) -> Void in
-//                    if let filteredImage = filteredImage {
-//                        self.imageView.image = filteredImage
-//                    }
-//                })
-//            })
+            let lenticularHaloAction = UIAlertAction(title: "Lenticular Halo", style: .Default, handler: { (alert) -> Void in
+                Filter.applyLenticularHalo(image, completion: { (filteredImage, name) -> Void in
+                    if let filteredImage = filteredImage, existingImage = self.imageView.image {
+                        Filter.blendHalo(filteredImage, backgroundImage: existingImage, completion: { (filteredImage, name) -> Void in
+                            if let filteredImage = filteredImage {
+                                self.imageView.image = filteredImage
+                            }
+                        })
+                    }
+                })
+            })
             let bumpDistortionAction = UIAlertAction(title: "Bump Distortion", style: .Default, handler: { (alert) -> Void in
                 Filter.applyBumpDistortionLinear(image, completion: { (filteredImage, name) -> Void in
                     if let filteredImage = filteredImage {
@@ -83,8 +99,10 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
             })
             let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
             alertController.addAction(ghostifyAction)
+            alertController.addAction(crossProcessAction)
+            alertController.addAction(crystallizeAction)
             alertController.addAction(glassLozengeAction)
-//            alertController.addAction(lenticularHaloAction)
+            alertController.addAction(lenticularHaloAction)
             alertController.addAction(bumpDistortionAction)
             alertController.addAction(holeDistortionAction)
             alertController.addAction(cancelAction)
