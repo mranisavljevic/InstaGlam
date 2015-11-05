@@ -11,7 +11,7 @@ import UIKit
 let kGalleryCollectionViewCellIdentifier = "GalleryCollectionViewCell"
 let kParseApplicationId = "sPdTfaOBYSCRULf5wk5j1gk3O0LuAL2VrOpbeyIQ"
 let kParseClientKey = "2ZIlRNnjZDIUcYcAmJN3ETcsbERoY9R3LXD39L0F"
-let kParseImageClass = "Image"
+let kParseStatusClass = "Status"
 let kImagePreferredSize = CGSize(width: 600, height: 600)
 let kColorInvertFilter = "CIColorInvert"
 let kGlassLozengeFilter = "CIGlassLozenge"

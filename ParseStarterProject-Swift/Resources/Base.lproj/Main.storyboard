@@ -101,7 +101,7 @@
             </objects>
             <point key="canvasLocation" x="250" y="-154"/>
         </scene>
-        <!--Timeline-->
+        <!--Gallery-->
         <scene sceneID="XhA-33-9Ox">
             <objects>
                 <viewController id="Aym-WJ-Kmz" customClass="GalleryCollectionViewController" customModule="InstaGlam" customModuleProvider="target" sceneMemberID="viewController">
@@ -145,6 +145,9 @@
                                             <constraint firstAttribute="trailing" secondItem="bp9-hx-6H8" secondAttribute="trailing" id="kY9-t9-AnY"/>
                                             <constraint firstItem="bp9-hx-6H8" firstAttribute="leading" secondItem="5d3-in-HBV" secondAttribute="leading" id="m2M-dK-jjG"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="cellImageView" destination="bp9-hx-6H8" id="FMF-aM-Pj8"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -158,7 +161,10 @@
                             <constraint firstItem="shW-Y7-f7l" firstAttribute="top" secondItem="9cO-tt-8MD" secondAttribute="bottom" id="kI0-1T-Q2M"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Timeline" id="Saz-5Q-zXs"/>
+                    <tabBarItem key="tabBarItem" title="Gallery" id="Saz-5Q-zXs"/>
+                    <connections>
+                        <outlet property="galleryCollectionView" destination="9cO-tt-8MD" id="p4p-85-nG0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n4N-9i-NeL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

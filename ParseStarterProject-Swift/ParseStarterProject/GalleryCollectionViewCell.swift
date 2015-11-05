@@ -10,4 +10,14 @@ import UIKit
 
 class GalleryCollectionViewCell: UICollectionViewCell {
     
+    var status: Status? {
+        didSet {
+            if let image = status?.statusImage {
+                self.cellImageView.image = image
+            }
+        }
+    }
+    
+    @IBOutlet weak var cellImageView: UIImageView!
+    
 }

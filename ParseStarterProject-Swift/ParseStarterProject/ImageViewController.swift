@@ -37,7 +37,8 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     @IBAction func saveButtonPressed(sender: UIButton) {
         if let image = self.imageView.image {
-            ParseAPI.saveImage(image)
+            let statusPost = Status(statusImage: image, statusUpdate: "")
+            ParseAPI.savePost(statusPost)
         }
     }
     
