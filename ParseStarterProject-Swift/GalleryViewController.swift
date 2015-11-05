@@ -54,7 +54,19 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let viewSize = self.view.frame
         let frameWidth = viewSize.width
-        let cellEdgeSize = (frameWidth / 2.0) - 2.0
+        let cellEdgeSize = (frameWidth / 3.0) - 3.0
         return CGSizeMake(cellEdgeSize, cellEdgeSize)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(2.0, 2.0, 2.0, 2.0)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 2.0
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 2.0
     }
 }
