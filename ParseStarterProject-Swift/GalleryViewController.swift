@@ -34,27 +34,9 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
     }
     
     func fetchStatuses() {
-        var statuses = [Status]()
         ParseAPI.fetchPosts { (objects) -> () in
-            if let objects = objects {
-                var i = 0
-            for object in objects {
-                ParseAPI.convertPFObjectToStatus(object, completion: { (status, error) -> () in
-                    if error == false {
-                        if let convertedStatus = status {
-                            statuses.append(convertedStatus)
-                            i++
-                            if i == objects.count {
-                                self.imageStatuses = statuses
-                            }
-                        }
-                    } else {
-                        print("error")
-                    }
-                })
-                }
-//                self.imageStatuses = statuses
-//                print(self.imageStatuses.count)
+            if let statusArray = objects {
+                self.imageStatuses = statusArray
             }
         }
     }

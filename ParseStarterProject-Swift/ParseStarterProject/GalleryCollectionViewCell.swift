@@ -14,6 +14,20 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         didSet {
             if let image = status?.statusImage {
                 self.cellImageView.image = image
+            } else {
+                if let imageFile = status?.statusImageFile {
+                    imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
+                        if error != nil {
+                            print("Error fetching image")
+                        } else {
+                            if let imageData = data {
+                                let image = UIImage(data: imageData)
+                                self.status?.statusImage = image
+                                self.cellImageView.image = image
+                            }
+                        }
+                    })
+                }
             }
         }
     }
