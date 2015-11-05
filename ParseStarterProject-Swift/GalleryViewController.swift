@@ -12,6 +12,8 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
     
     @IBOutlet weak var galleryCollectionView: UICollectionView!
     
+    
+    
     var imageStatuses = [Status]() {
         didSet {
             self.galleryCollectionView.reloadData()
