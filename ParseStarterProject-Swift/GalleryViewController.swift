@@ -22,6 +22,7 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         super.viewDidLoad()
         self.galleryCollectionView.dataSource = self
         self.galleryCollectionView.delegate = self
+        self.galleryCollectionView.backgroundColor = UIColor.chartreuseColor()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -37,6 +38,15 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         ParseAPI.fetchPosts { (objects) -> () in
             if let statusArray = objects {
                 self.imageStatuses = statusArray
+            } else {
+                let retryAlertController = UIAlertController(title: "Error", message: "Unable to load images.  Please retry.", preferredStyle: .Alert)
+                let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: { (action) -> Void in
+                    self.fetchStatuses()
+                })
+                let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                retryAlertController.addAction(retryAction)
+                retryAlertController.addAction(cancelAction)
+                self.presentViewController(retryAlertController, animated: true, completion: nil)
             }
         }
     }

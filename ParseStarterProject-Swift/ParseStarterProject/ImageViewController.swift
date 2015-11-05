@@ -12,8 +12,11 @@ import Parse
 class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let imagePickerController = UIImagePickerController()
+    
+    let defaultImage = UIImage(named: "Logo")
 
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var statusMessageTextField: UITextField!
     @IBAction func imagePickerButton(sender: UIButton) {
         imagePickerController.allowsEditing = true
         if UIImagePickerController.isSourceTypeAvailable(.Camera) {
@@ -36,9 +39,39 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     @IBAction func saveButtonPressed(sender: UIButton) {
-        if let image = self.imageView.image {
-            let statusPost = Status(statusImage: image, statusUpdate: "")
-            ParseAPI.savePost(statusPost)
+        let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        let image = self.imageView.image
+        if image != defaultImage {
+            if let message = statusMessageTextField.text {
+                if message != "" {
+                    let statusPost = Status(statusImage: image, statusUpdate: message)
+                    ParseAPI.savePost(statusPost, completion: { (saved, error) -> () in
+                        if saved {
+                            let savedAction = UIAlertController(title: "Saved", message: "Saved successfully!", preferredStyle: .Alert)
+                            savedAction.addAction(okAction)
+                            self.presentViewController(savedAction, animated: true, completion: { () -> Void in
+                                self.imageView.image = self.defaultImage
+                                self.statusMessageTextField.text = ""
+                                self.statusMessageTextField.placeholder = "Bowl cut, baby!"
+                            })
+                        } else {
+                            if let error = error {
+                                let errorAction = UIAlertController(title: "Error!", message: "Error code: \(error.code)", preferredStyle: .Alert)
+                                errorAction.addAction(okAction)
+                                self.presentViewController(errorAction, animated: true, completion: nil)
+                            }
+                        }
+                    })
+                } else {
+                    let noTextAction = UIAlertController(title: "Oops!", message: "Please write a comment about your photo.", preferredStyle: .Alert)
+                    noTextAction.addAction(okAction)
+                    self.presentViewController(noTextAction, animated: true, completion: nil)
+                }
+            }
+        } else {
+            let noImageAction = UIAlertController(title: "Oops!", message: "Please capture or import a photo.", preferredStyle: .Alert)
+            noImageAction.addAction(okAction)
+            self.presentViewController(noImageAction, animated: true, completion: nil)
         }
     }
     
@@ -129,8 +162,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         if self.imageView.image == nil {
-            let defaultImage = UIImage(named: "Logo")
-            self.imageView.image = defaultImage
+            self.imageView.image = self.defaultImage
         }
     }
 

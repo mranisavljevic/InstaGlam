@@ -11,7 +11,7 @@ import Parse
 
 class ParseAPI {
     
-    class func savePost(post: Status?) {
+    class func savePost(post: Status?, completion: (saved: Bool, error: NSError?) -> ()) {
         if let post = post {
             let parseStatusClass = PFObject(className: kParseStatusClass)
             if let imageData = UIImageJPEGRepresentation(post.statusImage!, 1.0) {
@@ -20,9 +20,9 @@ class ParseAPI {
                 parseStatusClass["statusUpdateMessage"] = post.statusUpdate
                 parseStatusClass.saveInBackgroundWithBlock { (saved, error) -> Void in
                     if saved {
-                        print("Successfully saved.")
+                        completion(saved: true, error: nil)
                     } else {
-                        print("Error code: \(error?.code)")
+                        completion(saved: false, error: error)
                     }
                 }
             }
@@ -43,7 +43,6 @@ class ParseAPI {
                         let status = Status(statusUpdate: messageText, statusImageFile: imageFile)
                         statusArray.append(status)
                     }
-                    print("Got some objects: \(results.count)")
                     completion(objects: statusArray)
                 }
             }

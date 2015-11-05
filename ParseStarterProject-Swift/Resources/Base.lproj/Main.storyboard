@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -40,7 +41,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zN3-8K-iGb">
                                 <rect key="frame" x="150" y="28" width="300" height="300"/>
                                 <animations/>
-                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.94581732429090903" green="0.94581732429090903" blue="0.94581732429090903" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="Hzt-jl-kPJ"/>
                                     <constraint firstAttribute="height" constant="300" id="eZw-6N-DYD"/>
@@ -53,48 +54,85 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jzp-NG-A9m" userLabel="Select Image">
-                                <rect key="frame" x="150" y="28" width="300" height="300"/>
-                                <animations/>
-                                <connections>
-                                    <action selector="imagePickerButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="696-do-g3k"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="scS-S1-1a0">
-                                <rect key="frame" x="283" y="336" width="34" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Save"/>
-                                <connections>
-                                    <action selector="saveButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vvg-pX-Yhk"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5X4-ZH-No1">
-                                <rect key="frame" x="257.5" y="513" width="85" height="30"/>
+                                <rect key="frame" x="257" y="406" width="85" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Apply Filters"/>
+                                <state key="normal" title="Apply Filters">
+                                    <color key="titleColor" red="0.54117647058823526" green="0.70980392156862748" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="filtersButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KF3-VE-xMP"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="scS-S1-1a0">
+                                <rect key="frame" x="501" y="406" width="79" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Save Image">
+                                    <color key="titleColor" red="0.54117647059999996" green="0.70980392160000005" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vvg-pX-Yhk"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Status Message" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h41-ZU-Tph">
+                                <rect key="frame" x="149.5" y="336" width="300" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jzp-NG-A9m" userLabel="Select Image">
+                                <rect key="frame" x="20" y="406" width="89" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Select Image">
+                                    <color key="titleColor" red="0.54117647059999996" green="0.70980392160000005" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="imagePickerButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="696-do-g3k"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.51372549019607838" green="0.94901960784313721" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="h41-ZU-Tph" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1S6-r0-5gU"/>
                             <constraint firstItem="Jzp-NG-A9m" firstAttribute="centerY" secondItem="zN3-8K-iGb" secondAttribute="centerY" id="6ha-df-kAW"/>
                             <constraint firstItem="zN3-8K-iGb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9t6-0A-jgO"/>
                             <constraint firstItem="scS-S1-1a0" firstAttribute="centerX" secondItem="Jzp-NG-A9m" secondAttribute="centerX" id="AcD-SH-itv"/>
                             <constraint firstItem="Jzp-NG-A9m" firstAttribute="width" secondItem="zN3-8K-iGb" secondAttribute="width" id="B7f-DE-KuX"/>
                             <constraint firstItem="scS-S1-1a0" firstAttribute="top" secondItem="Jzp-NG-A9m" secondAttribute="bottom" constant="8" id="HuW-yh-fpS"/>
+                            <constraint firstItem="h41-ZU-Tph" firstAttribute="width" secondItem="Jzp-NG-A9m" secondAttribute="width" id="Hzf-uz-6DG"/>
                             <constraint firstItem="Jzp-NG-A9m" firstAttribute="height" secondItem="zN3-8K-iGb" secondAttribute="height" id="JKl-dz-OKQ"/>
                             <constraint firstItem="5X4-ZH-No1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="N5e-d2-iLq"/>
+                            <constraint firstItem="Jzp-NG-A9m" firstAttribute="baseline" secondItem="5X4-ZH-No1" secondAttribute="baseline" id="Q0F-8N-keq"/>
+                            <constraint firstItem="h41-ZU-Tph" firstAttribute="top" secondItem="zN3-8K-iGb" secondAttribute="bottom" constant="8" symbolic="YES" id="SnC-dr-xwg"/>
+                            <constraint firstItem="h41-ZU-Tph" firstAttribute="width" secondItem="zN3-8K-iGb" secondAttribute="width" id="WpC-1T-miO"/>
                             <constraint firstItem="Jzp-NG-A9m" firstAttribute="centerX" secondItem="zN3-8K-iGb" secondAttribute="centerX" id="a62-Iw-DfM"/>
                             <constraint firstItem="zN3-8K-iGb" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="caA-cn-HP4"/>
+                            <constraint firstItem="scS-S1-1a0" firstAttribute="baseline" secondItem="5X4-ZH-No1" secondAttribute="baseline" id="fZy-Rg-rRL"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="5X4-ZH-No1" secondAttribute="bottom" constant="8" id="hhI-f0-IBr"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Jzp-NG-A9m" secondAttribute="leading" id="hhN-ue-cRt"/>
+                            <constraint firstItem="5X4-ZH-No1" firstAttribute="top" secondItem="h41-ZU-Tph" secondAttribute="bottom" constant="40" id="mL2-vt-XNa"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="scS-S1-1a0" secondAttribute="trailing" id="t6X-ke-JeQ"/>
+                            <constraint firstItem="h41-ZU-Tph" firstAttribute="top" secondItem="Jzp-NG-A9m" secondAttribute="bottom" constant="8" id="yq5-pG-pXR"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Hzf-uz-6DG"/>
+                                <exclude reference="yq5-pG-pXR"/>
+                                <exclude reference="6ha-df-kAW"/>
+                                <exclude reference="B7f-DE-KuX"/>
+                                <exclude reference="JKl-dz-OKQ"/>
+                                <exclude reference="a62-Iw-DfM"/>
+                                <exclude reference="hhI-f0-IBr"/>
+                                <exclude reference="AcD-SH-itv"/>
+                                <exclude reference="HuW-yh-fpS"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Image" image="Image" id="oB8-Wz-zrj"/>
                     <connections>
                         <outlet property="imageView" destination="zN3-8K-iGb" id="n4Z-i7-1x1"/>
+                        <outlet property="statusMessageTextField" destination="h41-ZU-Tph" id="LnM-qc-svP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -161,7 +199,7 @@
                             <constraint firstItem="shW-Y7-f7l" firstAttribute="top" secondItem="9cO-tt-8MD" secondAttribute="bottom" id="kI0-1T-Q2M"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Gallery" id="Saz-5Q-zXs"/>
+                    <tabBarItem key="tabBarItem" title="Gallery" image="Feed" id="Saz-5Q-zXs"/>
                     <connections>
                         <outlet property="galleryCollectionView" destination="9cO-tt-8MD" id="p4p-85-nG0"/>
                     </connections>
@@ -172,6 +210,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Feed" width="27" height="27"/>
         <image name="Image" width="27" height="27"/>
     </resources>
 </document>

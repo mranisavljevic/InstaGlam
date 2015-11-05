@@ -19,3 +19,9 @@ extension UIImage {
         return resizedImage
     }
 }
+
+extension UIColor {
+    class func chartreuseColor() -> UIColor {
+        return UIColor(colorLiteralRed: 89.4 / 100.0, green: 99.2 / 100.0, blue: 53.7 / 100.0, alpha: 1.0)
+    }
+}
