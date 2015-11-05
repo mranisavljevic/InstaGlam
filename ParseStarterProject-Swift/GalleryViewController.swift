@@ -53,8 +53,6 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
                     }
                 })
                 }
-//                self.imageStatuses = statuses
-//                print(self.imageStatuses.count)
             }
         }
     }
