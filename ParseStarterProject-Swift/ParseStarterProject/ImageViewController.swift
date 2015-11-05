@@ -17,6 +17,8 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var statusMessageTextField: UITextField!
+    
+    @IBOutlet weak var filterCollectionView: UICollectionView!
     @IBAction func imagePickerButton(sender: UIButton) {
         imagePickerController.allowsEditing = true
         if UIImagePickerController.isSourceTypeAvailable(.Camera) {

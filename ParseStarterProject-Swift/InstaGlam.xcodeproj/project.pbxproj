@@ -25,6 +25,7 @@
 		90B43DE01BE954A500DD753E /* ParseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B43DDF1BE954A500DD753E /* ParseAPI.swift */; };
 		90B43DE21BE957F200DD753E /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B43DE11BE957F200DD753E /* UIImageExtensions.swift */; };
 		90B43DE41BE95ABD00DD753E /* ImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B43DE31BE95ABD00DD753E /* ImageFilter.swift */; };
+		90D313161BEC185900643BFF /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D313151BEC185900643BFF /* FilterCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		90B43DDF1BE954A500DD753E /* ParseAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPI.swift; sourceTree = "<group>"; };
 		90B43DE11BE957F200DD753E /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		90B43DE31BE95ABD00DD753E /* ImageFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFilter.swift; sourceTree = "<group>"; };
+		90D313151BEC185900643BFF /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				90045B081BE8147500862357 /* ImageViewController.swift */,
 				90B43DDD1BE8466900DD753E /* GalleryViewController.swift */,
 				9086E3611BEAA98000B23B98 /* GalleryCollectionViewCell.swift */,
+				90D313151BEC185900643BFF /* FilterCollectionViewCell.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,
 				90B43DDE1BE8466900DD753E /* GalleryViewController.swift in Sources */,
 				90B43DE21BE957F200DD753E /* UIImageExtensions.swift in Sources */,
+				90D313161BEC185900643BFF /* FilterCollectionViewCell.swift in Sources */,
 				90045B091BE8147500862357 /* ImageViewController.swift in Sources */,
 				904411891BE9A5FA003CEBC2 /* Status.swift in Sources */,
 				90045B071BE80CAC00862357 /* Constants.swift in Sources */,
