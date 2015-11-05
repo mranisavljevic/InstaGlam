@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import Parse
 
 class Status {
-    let statusImage: UIImage
-    let statusUpdate: String?
+    var statusImage: UIImage?
+    let statusUpdate: String
+    let statusImageFile: PFFile?
     
-    init(statusImage: UIImage, statusUpdate: String? = nil) {
+    init(statusImage: UIImage? = nil, statusUpdate: String, statusImageFile: PFFile? = nil) {
         self.statusImage = statusImage
         self.statusUpdate = statusUpdate
+        self.statusImageFile = statusImageFile
     }
 }
