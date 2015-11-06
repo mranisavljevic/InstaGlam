@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol GalleryCollectionViewControllerDelegate {
+    func didSelectItemInGalleryWithImage(image: UIImage)
+}
+
 class GalleryCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var galleryCollectionView: UICollectionView!
@@ -23,6 +27,8 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
             self.galleryCollectionView.reloadData()
         }
     }
+    
+    var delegate: GalleryCollectionViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,5 +100,21 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 2.0
+    }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        let image = imageStatuses[indexPath.row].statusImageFile
+        image?.getDataInBackgroundWithBlock({ (data, error) -> Void in
+            if error != nil {
+                print("Your photo didn't come back with code \(error!.code)")
+            }
+            if let imageData = data {
+                if let image = UIImage(data: imageData) {
+                    if let delegate = self.delegate {
+                        delegate.didSelectItemInGalleryWithImage(image)
+                    }
+                }
+            }
+        })
     }
 }

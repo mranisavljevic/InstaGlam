@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GalleryCollectionViewControllerDelegate, UITabBarControllerDelegate {
     
     let imagePickerController = UIImagePickerController()
     
@@ -32,6 +32,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         filterCollectionView.delegate = self
         filterCollectionView.dataSource = self
         filterCollectionView.hidden = true
+        self.tabBarController?.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -81,6 +82,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
                                 self.imageView.image = self.defaultImage
                                 self.statusMessageTextField.text = ""
                                 self.statusMessageTextField.placeholder = "Bowl cut, baby!"
+                                self.filterCollectionView.hidden = true
                             })
                         } else {
                             if let error = error {
@@ -104,6 +106,10 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     @IBAction func filtersButtonPressed(sender: UIButton) {
+        applyFilters()
+    }
+    
+    func applyFilters() {
         displayFilterOptions { (images) -> () in
             self.filteredImages = images
             self.filterCollectionView.hidden = false
@@ -193,6 +199,13 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         self.imageView.image = filteredImages[indexPath.row]
+        applyFilters()
+    }
+    
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        if let viewController = viewController as? GalleryCollectionViewController {
+            viewController.delegate = self
+        }
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -203,4 +216,10 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         textField.resignFirstResponder()
         return true
     }
+    
+    func didSelectItemInGalleryWithImage(image: UIImage) {
+        self.imageView.image = image
+        self.statusMessageTextField.placeholder = "Bring the bowl cut back!"
+    }
+    
 }
