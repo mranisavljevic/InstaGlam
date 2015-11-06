@@ -45,7 +45,6 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
     
     func pinch(sender: UIPinchGestureRecognizer) {
         if let _ = sender.view {
-            
             self.collectionViewCellScale = self.collectionViewCellScale / sender.scale
         sender.scale = 1.0
         }
@@ -101,7 +100,7 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         return 2.0
     }
     
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let image = imageStatuses[indexPath.row].statusImageFile
         image?.getDataInBackgroundWithBlock({ (data, error) -> Void in
             if error != nil {
