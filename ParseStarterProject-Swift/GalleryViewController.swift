@@ -22,7 +22,7 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         }
     }
     
-    var collectionViewCellScale = CGFloat() {
+    var collectionViewCellScale = CGFloat(3.0) {
         didSet {
             self.galleryCollectionView.reloadData()
         }
@@ -37,7 +37,6 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         self.galleryCollectionView.backgroundColor = UIColor.chartreuseColor()
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinch:")
         view.addGestureRecognizer(pinchGesture)
-        collectionViewCellScale = 3.0
     }
     
     override func viewWillAppear(animated: Bool) {
