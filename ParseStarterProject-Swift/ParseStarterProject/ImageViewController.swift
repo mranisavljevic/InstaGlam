@@ -20,6 +20,8 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
             self.filterCollectionView.reloadData()
         }
     }
+    
+    var filterLabels = [String]()
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var statusMessageTextField: UITextField!
@@ -38,6 +40,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         if self.imageView.image == nil {
+            self.imageView.backgroundColor = UIColor.lightGreyImageBackgroundColor()
             self.imageView.image = self.defaultImage
         }
     }
@@ -80,6 +83,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
                             savedAction.addAction(okAction)
                             self.presentViewController(savedAction, animated: true, completion: { () -> Void in
                                 self.imageView.image = self.defaultImage
+                                self.imageView.backgroundColor = UIColor.lightGreyImageBackgroundColor()
                                 self.statusMessageTextField.text = ""
                                 self.statusMessageTextField.placeholder = "Bowl cut, baby!"
                                 self.filterCollectionView.hidden = true
@@ -110,43 +114,50 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     func applyFilters() {
-        displayFilterOptions { (images) -> () in
+        displayFilterOptions { (images, names) -> () in
             self.filteredImages = images
+            self.filterLabels = names
             self.filterCollectionView.hidden = false
         }
     }
     
-    func displayFilterOptions(completion: (images: [UIImage]) -> ()) {
+    func displayFilterOptions(completion: (images: [UIImage], names: [String]) -> ()) {
         var imageArray = [UIImage]()
+        var nameArray = [String]()
         if let image = self.imageView.image {
             
             Filter.applyGhostFilter(image, completion: { (filteredImage, name) -> Void in
                 if let filtered = filteredImage {
                     imageArray.append(filtered)
+                    nameArray.append(name)
                 }
             })
             
             Filter.applyProcessFilter(image, completion: { (filteredImage, name) -> Void in
                 if let filtered = filteredImage {
                     imageArray.append(filtered)
+                    nameArray.append(name)
                 }
             })
             
             Filter.applyEdgesFilter(image, completion: { (filteredImage, name) -> Void in
                 if let filtered = filteredImage {
                     imageArray.append(filtered)
+                    nameArray.append(name)
                 }
             })
             
             Filter.applyCrystallizeFilter(image, completion: { (filteredImage, name) -> Void in
                 if let filtered = filteredImage {
                     imageArray.append(filtered)
+                    nameArray.append(name)
                 }
             })
             
             Filter.applyGlassLozengeFilter(image, completion: { (filteredImage, name) -> Void in
                 if let filtered = filteredImage {
                     imageArray.append(filtered)
+                    nameArray.append(name)
                 }
             })
             
@@ -157,28 +168,33 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
                             imageArray.append(filtered)
                         }
                     })
+                    nameArray.append(name)
                 }
             })
             
             Filter.applyBumpDistortionLinear(image, completion: { (filteredImage, name) -> Void in
                 if let filtered = filteredImage {
                     imageArray.append(filtered)
+                    nameArray.append(name)
                 }
             })
             
             Filter.applyHoleDistortion(image, completion: { (filteredImage, name) -> Void in
                 if let filtered = filteredImage {
                     imageArray.append(filtered)
+                    nameArray.append(name)
                 }
             })
             
-            completion(images: imageArray)
+            completion(images: imageArray, names: nameArray)
         }
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         let resizedImage = UIImage.resizeImage(image, size: kImagePreferredSize)
+        self.imageView.backgroundColor = UIColor.blackColor()
         self.imageView.image = resizedImage
+        self.filterCollectionView.hidden = true
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -189,6 +205,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kFilterCollectionViewCellIdentifier, forIndexPath: indexPath) as! FilterCollectionViewCell
         cell.filteredImage = self.filteredImages[indexPath.row]
+        cell.filterName = self.filterLabels[indexPath.row]
         return cell
     }
     
@@ -198,6 +215,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.imageView.backgroundColor = UIColor.blackColor()
         self.imageView.image = filteredImages[indexPath.row]
         applyFilters()
     }
@@ -218,6 +236,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     func didSelectItemInGalleryWithImage(image: UIImage) {
+        self.imageView.backgroundColor = UIColor.blackColor()
         self.imageView.image = image
         self.statusMessageTextField.placeholder = "Bring the bowl cut back!"
     }

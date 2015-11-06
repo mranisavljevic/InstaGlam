@@ -3,7 +3,7 @@
 import UIKit
 
 func testForPalindrome(word: String) -> Bool {
-    let stringArray = Array(word.characters)
+    let stringArray = Array(word.lowercaseString.characters)
     for i in 0..<stringArray.count {
         if stringArray[i] != stringArray[stringArray.count - 1 - i] {
             return false

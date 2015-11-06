@@ -45,7 +45,10 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
     
     func pinch(sender: UIPinchGestureRecognizer) {
         if let _ = sender.view {
-            self.collectionViewCellScale = self.collectionViewCellScale / sender.scale
+            let newScale = self.collectionViewCellScale / sender.scale
+            if newScale >= 1.01 && newScale <= 86.0 {
+                self.collectionViewCellScale = newScale
+            }
         sender.scale = 1.0
         }
     }
@@ -110,6 +113,10 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
                 if let image = UIImage(data: imageData) {
                     if let delegate = self.delegate {
                         delegate.didSelectItemInGalleryWithImage(image)
+                        let gotItAlert = UIAlertController(title: "Got it!", message: "Your image is downloaded in your editing pane.", preferredStyle: .Alert)
+                        let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+                        gotItAlert.addAction(okAction)
+                        self.presentViewController(gotItAlert, animated: true, completion: nil)
                     }
                 }
             }
