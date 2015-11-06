@@ -33,5 +33,6 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     }
     
     @IBOutlet weak var cellImageView: UIImageView!
+
     
 }

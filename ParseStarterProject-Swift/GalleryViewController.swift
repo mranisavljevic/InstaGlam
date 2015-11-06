@@ -12,9 +12,13 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
     
     @IBOutlet weak var galleryCollectionView: UICollectionView!
     
-    
-    
     var imageStatuses = [Status]() {
+        didSet {
+            self.galleryCollectionView.reloadData()
+        }
+    }
+    
+    var collectionViewCellScale = CGFloat() {
         didSet {
             self.galleryCollectionView.reloadData()
         }
@@ -25,12 +29,22 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         self.galleryCollectionView.dataSource = self
         self.galleryCollectionView.delegate = self
         self.galleryCollectionView.backgroundColor = UIColor.chartreuseColor()
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinch:")
+        view.addGestureRecognizer(pinchGesture)
+        collectionViewCellScale = 3.0
     }
     
     override func viewWillAppear(animated: Bool) {
         fetchStatuses()
     }
     
+    func pinch(sender: UIPinchGestureRecognizer) {
+        if let _ = sender.view {
+            
+            self.collectionViewCellScale = self.collectionViewCellScale / sender.scale
+        sender.scale = 1.0
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -66,7 +80,7 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let viewSize = self.view.frame
         let frameWidth = viewSize.width
-        let cellEdgeSize = (frameWidth / 3.0) - 3.0
+        let cellEdgeSize = (frameWidth / collectionViewCellScale) - 3.0
         return CGSizeMake(cellEdgeSize, cellEdgeSize)
     }
     
