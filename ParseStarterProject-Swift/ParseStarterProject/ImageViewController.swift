@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Photos
 
 class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GalleryCollectionViewControllerDelegate, UITabBarControllerDelegate {
     
@@ -22,6 +23,18 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     var filterLabels = [String]()
+    
+    var photoCollection: PHFetchResult? {
+        didSet {
+            print("Here's the collection I have: \(photoCollection)")
+        }
+    }
+//
+    var folder: PHAssetCollection? {
+        didSet {
+            print("Is this a collection? \(folder)")
+        }
+    }
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var statusMessageTextField: UITextField!
@@ -35,6 +48,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         filterCollectionView.dataSource = self
         filterCollectionView.hidden = true
         self.tabBarController?.delegate = self
+        getInstaGlamPhotoFolder()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -74,6 +88,25 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
         let image = self.imageView.image
         if image != defaultImage {
+//            if let image = image {
+//                let PHPhoto = PHAssetChangeRequest.creationRequestForAssetFromImage(image)
+//                if let image = PHPhoto as? PHAsset {
+//                    if let collection = self.photoCollection as? PHAssetCollection {
+//                        let changeRequest = PHAssetCollectionChangeRequest(forAssetCollection: collection)
+//                        changeRequest?.addAssets(image)
+//                    }
+//                }
+//            }
+//            Save to local folder
+//            PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
+//                if let image = image {
+//                    PHAssetChangeRequest.creationRequestForAssetFromImage(image)
+//                }
+//                    }, completionHandler: { (created, error) -> Void in
+//                        print("There's a photo now")
+//                })
+            
+            
             if let message = statusMessageTextField.text {
                 if message != "" {
                     let statusPost = Status(statusImage: image, statusUpdate: message)
@@ -95,6 +128,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
                                 self.presentViewController(errorAction, animated: true, completion: nil)
                             }
                         }
+//                        PHPhotoLibrary - save images to InstaGlam folder
                     })
                 } else {
                     let noTextAction = UIAlertController(title: "Oops!", message: "Please write a comment about your photo.", preferredStyle: .Alert)
@@ -111,6 +145,62 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     @IBAction func filtersButtonPressed(sender: UIButton) {
         applyFilters()
+    }
+    
+//    func savePhotosToLocalFolder() {
+//        let assetCollectionFetch = PHAssetCollection.fetchAssetCollectionsWithLocalIdentifiers(kImageLocalFolderName, options: nil)
+//        self.photoCollection = assetCollectionFetch
+//        if let collection = self.photoCollection?.firstObject {
+//            print(collection)
+//        } else {
+//            createLocalPhotoFolder()
+//        }
+//    }
+//    
+    func createLocalPhotoFolder() {
+        if let _ = self.photoCollection {
+            print("There's a collection already!")
+        } else {
+            if let folderName = kImageLocalFolderName.first {
+                PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
+                    PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle(folderName)
+                    }, completionHandler: { (done, error) -> Void in
+                        if let error = error {
+                            print("The collection couldn't be created because of: \(error)")
+                        }
+                        if done == true {
+                            print("A collection was created.")
+                            self.getInstaGlamPhotoFolder()
+                        }
+                })
+            }
+        }
+    }
+    
+    func getInstaGlamPhotoFolder() {
+        let options = PHFetchOptions()
+        let allCollections = PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.Album, subtype: PHAssetCollectionSubtype.AlbumRegular, options: options)
+        var identifiers = [String]()
+        print("Total count: \(allCollections.count)")
+        if let identifier = allCollections.lastObject?.localIdentifier {
+            if let plistPath = NSBundle.mainBundle().pathForResource("folder", ofType: "plist") {
+                if let plist = NSDictionary(contentsOfFile: plistPath) as? [String : AnyObject] {
+                    var plistChange = plist
+                    plistChange[kInfoPlistFolderName] = identifier
+                    
+                }
+            }
+            identifiers.append(identifier)
+            let fetchResults = PHAssetCollection.fetchAssetCollectionsWithLocalIdentifiers(identifiers, options: options)
+            if let collection = fetchResults.firstObject as? PHAssetCollection {
+                self.folder = collection
+            } else {
+                createLocalPhotoFolder()
+            }
+        } else {
+            createLocalPhotoFolder()
+        }
+        
     }
     
     func applyFilters() {

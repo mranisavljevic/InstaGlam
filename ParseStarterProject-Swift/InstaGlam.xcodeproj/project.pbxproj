@@ -19,6 +19,7 @@
 		90045B051BE80B1F00862357 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90045B041BE80B1F00862357 /* LaunchScreen.storyboard */; };
 		90045B071BE80CAC00862357 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90045B061BE80CAC00862357 /* Constants.swift */; };
 		90045B091BE8147500862357 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90045B081BE8147500862357 /* ImageViewController.swift */; };
+		900C55E31BEDA41900A06803 /* folder.plist in Resources */ = {isa = PBXBuildFile; fileRef = 900C55E21BEDA41900A06803 /* folder.plist */; };
 		904411891BE9A5FA003CEBC2 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904411881BE9A5FA003CEBC2 /* Status.swift */; };
 		9086E3621BEAA98000B23B98 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9086E3611BEAA98000B23B98 /* GalleryCollectionViewCell.swift */; };
 		90B43DDE1BE8466900DD753E /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B43DDD1BE8466900DD753E /* GalleryViewController.swift */; };
@@ -46,6 +47,7 @@
 		90045B041BE80B1F00862357 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90045B061BE80CAC00862357 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		90045B081BE8147500862357 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		900C55E21BEDA41900A06803 /* folder.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = folder.plist; sourceTree = "<group>"; };
 		904411881BE9A5FA003CEBC2 /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		9086E3611BEAA98000B23B98 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		90B43DDD1BE8466900DD753E /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryViewController.swift; path = ../GalleryViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				814C3AC81B69877600E307BB /* Images.xcassets */,
 				90045B041BE80B1F00862357 /* LaunchScreen.storyboard */,
 				814C3AC91B69877600E307BB /* Info.plist */,
+				900C55E21BEDA41900A06803 /* folder.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 				TargetAttributes = {
 					81BA81441A49DA1800E65899 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = C49MT2F2AS;
 					};
 				};
 			};
@@ -227,6 +231,7 @@
 			files = (
 				90045B051BE80B1F00862357 /* LaunchScreen.storyboard in Resources */,
 				814C3ACA1B69877600E307BB /* Main.storyboard in Resources */,
+				900C55E31BEDA41900A06803 /* folder.plist in Resources */,
 				814C3ACB1B69877600E307BB /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -366,6 +371,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -375,6 +382,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.creeperspeak.InstaGlam;
 				PRODUCT_NAME = InstaGlam;
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -383,6 +391,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -392,6 +402,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.creeperspeak.InstaGlam;
 				PRODUCT_NAME = InstaGlam;
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

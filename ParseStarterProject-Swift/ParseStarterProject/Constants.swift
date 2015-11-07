@@ -23,3 +23,6 @@ let kScreenBlendMode = "CIScreenBlendMode"
 let kColorProcessFilter = "CIPhotoEffectProcess"
 let kCrystallizeFilter = "CICrystallize"
 let kEdgesFilter = "CIEdges"
+
+let kImageLocalFolderName = ["InstaGlam"]
+let kInfoPlistFolderName = "FolderLocalIdentifier"
