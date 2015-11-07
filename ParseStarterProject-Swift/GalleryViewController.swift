@@ -12,13 +12,19 @@ protocol GalleryCollectionViewControllerDelegate {
     func didSelectItemInGalleryWithImage(image: UIImage)
 }
 
-class GalleryCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class GalleryCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITabBarControllerDelegate {
     
     @IBOutlet weak var galleryCollectionView: UICollectionView!
     
     var imageStatuses = [Status]() {
         didSet {
             self.galleryCollectionView.reloadData()
+        }
+    }
+    
+    var activeGallery: String? {
+        didSet {
+//           self.galleryTitleLabel.text = activeGallery
         }
     }
     
@@ -35,12 +41,14 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         self.galleryCollectionView.dataSource = self
         self.galleryCollectionView.delegate = self
         self.galleryCollectionView.backgroundColor = UIColor.chartreuseColor()
+        self.tabBarController?.delegate = self
+        self.tabBarController?.tabBarItem.title = ""
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinch:")
         view.addGestureRecognizer(pinchGesture)
     }
     
     override func viewWillAppear(animated: Bool) {
-        fetchStatuses()
+        fetchParseStatuses()
     }
     
     func pinch(sender: UIPinchGestureRecognizer) {
@@ -57,14 +65,15 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         super.didReceiveMemoryWarning()
     }
     
-    func fetchStatuses() {
+    func fetchParseStatuses() {
         ParseAPI.fetchPosts { (objects) -> () in
             if let statusArray = objects {
                 self.imageStatuses = statusArray
+                self.activeGallery = "Cloud Gallery"
             } else {
                 let retryAlertController = UIAlertController(title: "Error", message: "Unable to load images.  Please retry.", preferredStyle: .Alert)
                 let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: { (action) -> Void in
-                    self.fetchStatuses()
+                    self.fetchParseStatuses()
                 })
                 let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
                 retryAlertController.addAction(retryAction)
@@ -113,13 +122,17 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
                 if let image = UIImage(data: imageData) {
                     if let delegate = self.delegate {
                         delegate.didSelectItemInGalleryWithImage(image)
-                        let gotItAlert = UIAlertController(title: "Got it!", message: "Your image is downloaded in your editing pane.", preferredStyle: .Alert)
-                        let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-                        gotItAlert.addAction(okAction)
-                        self.presentViewController(gotItAlert, animated: true, completion: nil)
                     }
                 }
             }
         })
+    }
+    
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: kGalleryCollectionViewHeaderIdentifier, forIndexPath: indexPath) as! GalleryCollectionViewHeader
+        if let activeTitle = activeGallery {
+            header.galleryHeaderTitleLabel.text = activeTitle
+        }
+        return header
     }
 }

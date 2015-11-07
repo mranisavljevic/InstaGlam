@@ -9,6 +9,7 @@
 import UIKit
 
 let kGalleryCollectionViewCellIdentifier = "GalleryCollectionViewCell"
+let kGalleryCollectionViewHeaderIdentifier = "GalleryCollectionViewHeader"
 let kFilterCollectionViewCellIdentifier = "FilterCollectionViewCell"
 let kParseApplicationId = "sPdTfaOBYSCRULf5wk5j1gk3O0LuAL2VrOpbeyIQ"
 let kParseClientKey = "2ZIlRNnjZDIUcYcAmJN3ETcsbERoY9R3LXD39L0F"

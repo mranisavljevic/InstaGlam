@@ -28,4 +28,8 @@ extension UIColor {
     class func lightGreyImageBackgroundColor() -> UIColor {
         return UIColor(colorLiteralRed: 98.0 / 100.0, green: 98.0 / 100.0, blue: 98.0 / 100.0, alpha: 1.0)
     }
+    
+    class func lightBlueColor() -> UIColor {
+        return UIColor(colorLiteralRed: 138.0 / 255.0, green: 181.0 / 255.0, blue: 237.0 / 255.0, alpha: 1.0)
+    }
 }
