@@ -98,13 +98,21 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
 //                }
 //            }
 //            Save to local folder
-//            PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
-//                if let image = image {
-//                    PHAssetChangeRequest.creationRequestForAssetFromImage(image)
-//                }
-//                    }, completionHandler: { (created, error) -> Void in
-//                        print("There's a photo now")
-//                })
+            PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
+                if let image = image {
+                    let photo = PHAssetChangeRequest.creationRequestForAssetFromImage(image)
+                    let placeholder = photo.placeholderForCreatedAsset
+                    if let asset = placeholder {
+                        let assets: [PHObjectPlaceholder] = [asset]
+                        if let collection = self.folder {
+                            let addAsset = PHAssetCollectionChangeRequest(forAssetCollection: collection)
+                            addAsset?.addAssets(assets)
+                        }
+                    }
+                }
+                    }, completionHandler: { (created, error) -> Void in
+                        print("There's a photo now")
+                })
             
             
             if let message = statusMessageTextField.text {
@@ -161,46 +169,37 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         if let _ = self.photoCollection {
             print("There's a collection already!")
         } else {
-            if let folderName = kImageLocalFolderName.first {
-                PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
-                    PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle(folderName)
-                    }, completionHandler: { (done, error) -> Void in
-                        if let error = error {
-                            print("The collection couldn't be created because of: \(error)")
-                        }
-                        if done == true {
-                            print("A collection was created.")
-                            self.getInstaGlamPhotoFolder()
-                        }
-                })
-            }
+            let folderName = kImageLocalFolderName
+            PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
+                PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle(folderName)
+                }, completionHandler: { (done, error) -> Void in
+                    if let error = error {
+                        print("The collection couldn't be created because of: \(error)")
+                    }
+                    if done == true {
+                        print("A collection was created.")
+                        self.getInstaGlamPhotoFolder()
+                    }
+            })
         }
     }
     
     func getInstaGlamPhotoFolder() {
         let options = PHFetchOptions()
+        let filter: [String] = ["localizedTitle", kImageLocalFolderName]
+//        let filterKey = "localizedTitle"
+//        let filterValue = kImageLocalFolderName
+        options.predicate = NSPredicate(format: "%K like %@", argumentArray: filter)
+//            .predicateWithSubstitutionVariables(filter)
         let allCollections = PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.Album, subtype: PHAssetCollectionSubtype.AlbumRegular, options: options)
-        var identifiers = [String]()
+//        var identifiers = [String]()
         print("Total count: \(allCollections.count)")
-        if let identifier = allCollections.lastObject?.localIdentifier {
-            if let plistPath = NSBundle.mainBundle().pathForResource("folder", ofType: "plist") {
-                if let plist = NSDictionary(contentsOfFile: plistPath) as? [String : AnyObject] {
-                    var plistChange = plist
-                    plistChange[kInfoPlistFolderName] = identifier
-                    
-                }
-            }
-            identifiers.append(identifier)
-            let fetchResults = PHAssetCollection.fetchAssetCollectionsWithLocalIdentifiers(identifiers, options: options)
-            if let collection = fetchResults.firstObject as? PHAssetCollection {
+        print("Is this it? \(allCollections.firstObject?.localizedTitle)")
+        if let collection = allCollections.firstObject as? PHAssetCollection {
                 self.folder = collection
             } else {
                 createLocalPhotoFolder()
             }
-        } else {
-            createLocalPhotoFolder()
-        }
-        
     }
     
     func applyFilters() {
