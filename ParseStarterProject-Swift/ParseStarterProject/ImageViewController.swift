@@ -26,7 +26,11 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     var localInstaGlamPhotoCollection: PHAssetCollection?
     
-    var allLocalPhotoCollections: [PHAssetCollection]?
+    var allLocalPhotoCollections = [PHAssetCollection]() {
+        didSet {
+            print(allLocalPhotoCollections[0].localizedTitle)
+        }
+    }
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var statusMessageTextField: UITextField!
@@ -123,12 +127,12 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         applyFilters()
     }
     
-    func getAllPhotoFolders() {
+    func getAllPhotoFolders(completion: (complete: Bool) -> ()) {
         let options = PHFetchOptions()
         let localCollections = PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.Album, subtype: PHAssetCollectionSubtype.Any, options: options)
         localCollections.enumerateObjectsUsingBlock({ (object, index, end) -> Void in
         if let collection = object as? PHAssetCollection {
-            self.allLocalPhotoCollections?.append(collection)
+                self.allLocalPhotoCollections.append(collection)
             }
         })
     }
@@ -174,6 +178,13 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
                 }
             }
             }, completionHandler: { (created, error) -> Void in
+                if created {
+                    self.getAllPhotoFolders({ (complete) -> () in
+                        if complete {
+                            print("Got all collections")
+                        }
+                    })
+                }
         })
     }
     
@@ -287,7 +298,11 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
         if let viewController = viewController as? GalleryCollectionViewController {
             viewController.delegate = self
-            self.getAllPhotoFolders()
+            var folderNames = [String]()
+            let collections = self.allLocalPhotoCollections
+                for collection in collections {
+                    folderNames.append(collection.localizedTitle!)
+            }
         }
         return true
     }

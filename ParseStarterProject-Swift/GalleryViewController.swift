@@ -12,7 +12,7 @@ protocol GalleryCollectionViewControllerDelegate {
     func didSelectItemInGalleryWithImage(image: UIImage)
 }
 
-class GalleryCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITabBarControllerDelegate {
+class GalleryCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var galleryCollectionView: UICollectionView!
     
@@ -41,8 +41,6 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         self.galleryCollectionView.dataSource = self
         self.galleryCollectionView.delegate = self
         self.galleryCollectionView.backgroundColor = UIColor.chartreuseColor()
-        self.tabBarController?.delegate = self
-        self.tabBarController?.tabBarItem.title = ""
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinch:")
         view.addGestureRecognizer(pinchGesture)
     }
