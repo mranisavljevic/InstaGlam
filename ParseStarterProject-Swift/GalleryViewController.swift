@@ -78,7 +78,7 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         ParseAPI.fetchPosts { (objects) -> () in
             if let statusArray = objects {
                 self.imageStatuses = statusArray
-                self.activeGallery = "Cloud Gallery"
+//                self.activeGallery = "Cloud Gallery"
             } else {
                 let retryAlertController = UIAlertController(title: "Error", message: "Unable to load images.  Please retry.", preferredStyle: .Alert)
                 let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: { (action) -> Void in
@@ -140,19 +140,26 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let image = imageStatuses[indexPath.row].statusImageFile
-        image?.getDataInBackgroundWithBlock({ (data, error) -> Void in
-            if error != nil {
-                print("Your photo didn't come back with code \(error!.code)")
-            }
-            if let imageData = data {
-                if let image = UIImage(data: imageData) {
-                    if let delegate = self.delegate {
-                        delegate.didSelectItemInGalleryWithImage(image)
+        if self.activeGallery == "Cloud Gallery" {
+            let image = imageStatuses[indexPath.row].statusImageFile
+            image?.getDataInBackgroundWithBlock({ (data, error) -> Void in
+                if error != nil {
+                    print("Your photo didn't come back with code \(error!.code)")
+                }
+                if let imageData = data {
+                    if let image = UIImage(data: imageData) {
+                        if let delegate = self.delegate {
+                            delegate.didSelectItemInGalleryWithImage(image)
+                        }
                     }
                 }
+            })
+        } else {
+            if let delegate = self.delegate {
+                let image = localInstaGlamImages[indexPath.row]
+                delegate.didSelectItemInGalleryWithImage(image)
             }
-        })
+        }
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {

@@ -26,7 +26,11 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     var localInstaGlamPhotoCollection: PHAssetCollection?
     
-    var localInstaGlamImages = [UIImage]()
+    var localInstaGlamImages = [UIImage]() {
+        didSet {
+            print(localInstaGlamImages.count)
+        }
+    }
     
     var allLocalPhotoCollections: [PHAssetCollection]?
     
@@ -119,6 +123,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
                                 self.statusMessageTextField.text = ""
                                 self.statusMessageTextField.placeholder = "Bowl cut, baby!"
                                 self.filterCollectionView.hidden = true
+                                self.fetchLocalInstaGlamAssets()
                             })
                         } else {
                             if let error = error {
@@ -203,6 +208,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         if let collection = self.localInstaGlamPhotoCollection {
             let assets = PHAsset.fetchAssetsInAssetCollection(collection, options: options)
             if assets.countOfAssetsWithMediaType(PHAssetMediaType.Image) > 0 {
+                self.localInstaGlamImages = []
                 assets.enumerateObjectsUsingBlock({ (object, index, stop) -> Void in
                     if let asset = object as? PHAsset {
                         PHCachingImageManager.defaultManager().requestImageDataForAsset(asset, options: nil, resultHandler: { (data, dataUTI, orientation, info) -> Void in
