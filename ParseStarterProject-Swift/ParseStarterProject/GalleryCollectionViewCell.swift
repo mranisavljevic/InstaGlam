@@ -34,4 +34,11 @@ class GalleryCollectionViewCell: UICollectionViewCell {
             }
         }
     }
+    
+    var image: UIImage? {
+        didSet {
+            self.cellImageView.image = image
+            self.cellStatusMessageLabel.text = ""
+        }
+    }
 }

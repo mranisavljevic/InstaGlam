@@ -12,7 +12,7 @@ protocol GalleryCollectionViewControllerDelegate {
     func didSelectItemInGalleryWithImage(image: UIImage)
 }
 
-class GalleryCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITabBarControllerDelegate {
+class GalleryCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITabBarControllerDelegate, GalleryCollectionViewHeaderDelegate {
     
     @IBOutlet weak var galleryCollectionView: UICollectionView!
     
@@ -28,7 +28,11 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         }
     }
     
-    var activeGallery: String?
+    var activeGallery = "Cloud Gallery" {
+        didSet {
+            self.galleryCollectionView.reloadData()
+        }
+    }
     
     var collectionViewCellScale = CGFloat(3.0) {
         didSet {
@@ -49,6 +53,7 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         self.tabBarController?.tabBarItem.title = ""
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: "pinch:")
         view.addGestureRecognizer(pinchGesture)
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -94,16 +99,27 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
     //MARK: CollectionView Delegate/Datasource/FlowLayout Methods
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.imageStatuses.count
+        var itemCount = 0
+        if self.activeGallery == "Cloud Gallery" {
+            itemCount = self.imageStatuses.count
+        } else {
+            itemCount = self.localInstaGlamImages.count
+        }
+        return itemCount
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kGalleryCollectionViewCellIdentifier, forIndexPath: indexPath) as! GalleryCollectionViewCell
-        cell.status = self.imageStatuses[indexPath.row]
-        if self.collectionViewCellScale <= 1.1 {
-            cell.cellStatusMessageLabel.text = self.imageStatuses[indexPath.row].statusUpdate
+        if self.activeGallery == "Cloud Gallery" {
+            cell.status = self.imageStatuses[indexPath.row]
+            if self.collectionViewCellScale <= 1.1 {
+                cell.cellStatusMessageLabel.text = self.imageStatuses[indexPath.row].statusUpdate
+            } else {
+                cell.cellStatusMessageLabel.text = ""
+            }
         } else {
-            cell.cellStatusMessageLabel.text = ""
+            cell.status = nil
+            cell.image = self.localInstaGlamImages[indexPath.row]
         }
         return cell
     }
@@ -145,9 +161,15 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: kGalleryCollectionViewHeaderIdentifier, forIndexPath: indexPath) as! GalleryCollectionViewHeader
-        if let activeTitle = activeGallery {
-            header.galleryHeaderTitleLabel.text = activeTitle
-        }
+        header.galleryHeaderTitleLabel.text = self.activeGallery
+        header.delegate = self
         return header
     }
+    
+    //MARK: GalleryCollectionViewHeader Delegate Methods
+    
+    func didChangeGallerySource(source: String) {
+        self.activeGallery = source
+    }
+    
 }

@@ -266,13 +266,23 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gallery" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdI-bA-kaP">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gallery" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdI-bA-kaP">
                                             <rect key="frame" x="8" y="15" width="584" height="20"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHG-SM-19a">
+                                            <rect key="frame" x="487" y="10" width="105" height="30"/>
+                                            <animations/>
+                                            <state key="normal" title="Change Gallery">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="changeGalleryButtonPressed:" destination="ehC-Qa-LfW" eventType="touchUpInside" id="3NJ-mn-OLe"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <animations/>
                                     <color key="backgroundColor" red="0.54117647059999996" green="0.70980392160000005" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -281,6 +291,8 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="mdI-bA-kaP" secondAttribute="trailing" id="DhL-1p-Ppc"/>
                                         <constraint firstItem="mdI-bA-kaP" firstAttribute="top" secondItem="ehC-Qa-LfW" secondAttribute="topMargin" constant="7" id="Vpj-Mp-nmn"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="mdI-bA-kaP" secondAttribute="bottom" constant="7" id="YEi-Uu-xwr"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="gHG-SM-19a" secondAttribute="trailing" id="b8L-g1-ong"/>
+                                        <constraint firstItem="gHG-SM-19a" firstAttribute="baseline" secondItem="mdI-bA-kaP" secondAttribute="baseline" id="suA-Fs-6us"/>
                                     </constraints>
                                     <connections>
                                         <outlet property="galleryHeaderTitleLabel" destination="mdI-bA-kaP" id="yPJ-56-Px6"/>

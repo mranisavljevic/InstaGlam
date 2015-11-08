@@ -26,11 +26,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     var localInstaGlamPhotoCollection: PHAssetCollection?
     
-    var localInstaGlamImages = [UIImage]() {
-        didSet {
-            print(localInstaGlamImages.count)
-        }
-    }
+    var localInstaGlamImages = [UIImage]()
     
     var allLocalPhotoCollections: [PHAssetCollection]?
     
