@@ -31,6 +31,8 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
     }
     
     var delegate: GalleryCollectionViewControllerDelegate?
+    
+    //MARK: Lifecycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +49,12 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         fetchParseStatuses()
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    //MARK: Gesture Recognizer Setup
+    
     func pinch(sender: UIPinchGestureRecognizer) {
         if let _ = sender.view {
             let newScale = self.collectionViewCellScale / sender.scale
@@ -56,10 +64,8 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         sender.scale = 1.0
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
+    
+    //MARK: Parse Functions
     
     func fetchParseStatuses() {
         ParseAPI.fetchPosts { (objects) -> () in
@@ -78,6 +84,8 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
             }
         }
     }
+    
+    //MARK: CollectionView Delegate/Datasource/FlowLayout Methods
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.imageStatuses.count

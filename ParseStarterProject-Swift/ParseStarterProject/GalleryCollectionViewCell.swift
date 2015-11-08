@@ -9,7 +9,10 @@
 import UIKit
 
 class GalleryCollectionViewCell: UICollectionViewCell {
-    
+
+    @IBOutlet weak var cellImageView: UIImageView!
+    @IBOutlet weak var cellStatusMessageLabel: UILabel!
+
     var status: Status? {
         didSet {
             if let image = status?.statusImage {
@@ -31,15 +34,4 @@ class GalleryCollectionViewCell: UICollectionViewCell {
             }
         }
     }
-    
-//    var messageLabel: String? {
-//        didSet {
-//            self.cellStatusMessageLabel.text = messageLabel
-//        }
-//    }
-    
-    @IBOutlet weak var cellImageView: UIImageView!
-    @IBOutlet weak var cellStatusMessageLabel: UILabel!
-
-    
 }

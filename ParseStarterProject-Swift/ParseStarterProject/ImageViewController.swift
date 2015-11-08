@@ -27,10 +27,14 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     var localInstaGlamPhotoCollection: PHAssetCollection?
     
     var allLocalPhotoCollections: [PHAssetCollection]?
+    
+    //MARK: IBOutlets
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var statusMessageTextField: UITextField!
     @IBOutlet weak var filterCollectionView: UICollectionView!
+    
+    //MARK: Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +59,23 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         super.didReceiveMemoryWarning()
     }
     
+    //MARK: Button IBActions
+    
     @IBAction func imagePickerButton(sender: UIButton) {
+        displayImagePicker()
+    }
+    
+    @IBAction func saveButtonPressed(sender: UIButton) {
+        saveSelectedImage()
+            }
+    
+    @IBAction func filtersButtonPressed(sender: UIButton) {
+        applyFilters()
+    }
+    
+    //MARK: Image Section Functions
+    
+    func displayImagePicker() {
         imagePickerController.allowsEditing = true
         if UIImagePickerController.isSourceTypeAvailable(.Camera) {
             let imagePickerAction = UIAlertController(title: "Choose Source", message: "Please choose your image source.", preferredStyle: .ActionSheet)
@@ -78,7 +98,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
     }
     
-    @IBAction func saveButtonPressed(sender: UIButton) {
+    func saveSelectedImage() {
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
         let image = self.imageView.image
         if image != defaultImage {
@@ -119,9 +139,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
     }
     
-    @IBAction func filtersButtonPressed(sender: UIButton) {
-        applyFilters()
-    }
+    //MARK: Photos Framework Functions
     
     func getAllPhotoFolders() {
         let options = PHFetchOptions()
@@ -176,6 +194,8 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
             }, completionHandler: { (created, error) -> Void in
         })
     }
+    
+    //MARK: Filter Functions
     
     func applyFilters() {
         displayFilterOptions { (images, names) -> () in
@@ -254,6 +274,8 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
     }
     
+    //MARK: ImagePickerController Delegate Methods
+    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         let resizedImage = UIImage.resizeImage(image, size: kImagePreferredSize)
         self.imageView.backgroundColor = UIColor.blackColor()
@@ -261,6 +283,12 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         self.filterCollectionView.hidden = true
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //MARK: CollectionView Delegate/Datasource/FlowLayout Methods
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.filteredImages.count
@@ -284,6 +312,8 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         applyFilters()
     }
     
+    //MARK: TabBarController Delegate Methods
+    
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
         if let viewController = viewController as? GalleryCollectionViewController {
             viewController.delegate = self
@@ -292,14 +322,14 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         return true
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
+    //MARK: TextField Delegate Methods
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
+    
+    //MARK: GalleryViewController Delegate Methods
     
     func didSelectItemInGalleryWithImage(image: UIImage) {
         self.imageView.backgroundColor = UIColor.blackColor()
