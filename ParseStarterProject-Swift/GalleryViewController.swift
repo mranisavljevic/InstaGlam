@@ -22,11 +22,7 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         }
     }
     
-    var localInstaGlamImages = [UIImage]() {
-        didSet {
-            
-        }
-    }
+    var localInstaGlamImages = [UIImage]()
     
     var activeGallery = "Cloud Gallery" {
         didSet {
