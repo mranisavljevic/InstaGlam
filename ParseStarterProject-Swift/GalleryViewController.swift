@@ -22,11 +22,7 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         }
     }
     
-    var activeGallery: String? {
-        didSet {
-//           self.galleryTitleLabel.text = activeGallery
-        }
-    }
+    var activeGallery: String?
     
     var collectionViewCellScale = CGFloat(3.0) {
         didSet {
@@ -90,6 +86,11 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kGalleryCollectionViewCellIdentifier, forIndexPath: indexPath) as! GalleryCollectionViewCell
         cell.status = self.imageStatuses[indexPath.row]
+        if self.collectionViewCellScale <= 1.1 {
+            cell.cellStatusMessageLabel.text = self.imageStatuses[indexPath.row].statusUpdate
+        } else {
+            cell.cellStatusMessageLabel.text = ""
+        }
         return cell
     }
     

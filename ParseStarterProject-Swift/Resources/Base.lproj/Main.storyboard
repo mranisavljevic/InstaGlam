@@ -228,6 +228,14 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                     <animations/>
                                                 </imageView>
+                                                <label opaque="NO" alpha="0.69999999999999996" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pFf-3Q-YSv">
+                                                    <rect key="frame" x="8" y="142" width="134" height="0.0"/>
+                                                    <animations/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.51372549020000002" green="0.94901960780000005" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -235,12 +243,22 @@
                                         <animations/>
                                         <constraints>
                                             <constraint firstItem="bp9-hx-6H8" firstAttribute="top" secondItem="5d3-in-HBV" secondAttribute="top" id="EiC-NF-83z"/>
+                                            <constraint firstItem="pFf-3Q-YSv" firstAttribute="leading" secondItem="5d3-in-HBV" secondAttribute="leadingMargin" id="M0n-VE-JBT"/>
+                                            <constraint firstItem="pFf-3Q-YSv" firstAttribute="top" secondItem="5d3-in-HBV" secondAttribute="topMargin" id="TnE-qd-8U9"/>
                                             <constraint firstAttribute="bottom" secondItem="bp9-hx-6H8" secondAttribute="bottom" id="Zt2-s8-xCe"/>
+                                            <constraint firstItem="pFf-3Q-YSv" firstAttribute="bottom" secondItem="5d3-in-HBV" secondAttribute="bottomMargin" id="eax-ka-VqL"/>
+                                            <constraint firstItem="pFf-3Q-YSv" firstAttribute="trailing" secondItem="5d3-in-HBV" secondAttribute="trailingMargin" id="k5L-Xg-tv2"/>
                                             <constraint firstAttribute="trailing" secondItem="bp9-hx-6H8" secondAttribute="trailing" id="kY9-t9-AnY"/>
                                             <constraint firstItem="bp9-hx-6H8" firstAttribute="leading" secondItem="5d3-in-HBV" secondAttribute="leading" id="m2M-dK-jjG"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="TnE-qd-8U9"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <outlet property="cellImageView" destination="bp9-hx-6H8" id="FMF-aM-Pj8"/>
+                                            <outlet property="cellStatusMessageLabel" destination="pFf-3Q-YSv" id="g0Q-8C-aKB"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

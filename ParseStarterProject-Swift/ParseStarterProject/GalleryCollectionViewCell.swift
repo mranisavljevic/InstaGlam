@@ -32,7 +32,14 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         }
     }
     
+//    var messageLabel: String? {
+//        didSet {
+//            self.cellStatusMessageLabel.text = messageLabel
+//        }
+//    }
+    
     @IBOutlet weak var cellImageView: UIImageView!
+    @IBOutlet weak var cellStatusMessageLabel: UILabel!
 
     
 }
