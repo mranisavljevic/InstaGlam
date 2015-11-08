@@ -22,6 +22,12 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         }
     }
     
+    var localInstaGlamImages = [UIImage]() {
+        didSet {
+            
+        }
+    }
+    
     var activeGallery: String?
     
     var collectionViewCellScale = CGFloat(3.0) {

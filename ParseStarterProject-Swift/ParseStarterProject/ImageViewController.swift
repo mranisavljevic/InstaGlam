@@ -26,6 +26,12 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     var localInstaGlamPhotoCollection: PHAssetCollection?
     
+    var localInstaGlamImages = [UIImage]() {
+        didSet {
+            print(localInstaGlamImages.count)
+        }
+    }
+    
     var allLocalPhotoCollections: [PHAssetCollection]?
     
     //MARK: IBOutlets
@@ -158,6 +164,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         let localCollection = PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.Album, subtype: PHAssetCollectionSubtype.AlbumRegular, options: options)
         if let collection = localCollection.firstObject as? PHAssetCollection {
             self.localInstaGlamPhotoCollection = collection
+            self.fetchLocalInstaGlamAssets()
         } else {
             createLocalPhotoFolder()
         }
@@ -193,6 +200,26 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
             }
             }, completionHandler: { (created, error) -> Void in
         })
+    }
+    
+    func fetchLocalInstaGlamAssets() {
+        let options = PHFetchOptions()
+        if let collection = self.localInstaGlamPhotoCollection {
+            let assets = PHAsset.fetchAssetsInAssetCollection(collection, options: options)
+            if assets.countOfAssetsWithMediaType(PHAssetMediaType.Image) > 0 {
+                assets.enumerateObjectsUsingBlock({ (object, index, stop) -> Void in
+                    if let asset = object as? PHAsset {
+                        PHCachingImageManager.defaultManager().requestImageDataForAsset(asset, options: nil, resultHandler: { (data, dataUTI, orientation, info) -> Void in
+                            if let imageData = data {
+                                if let image = UIImage(data: imageData) {
+                                    self.localInstaGlamImages.append(image)
+                                }
+                            }
+                        })
+                    }
+                })
+            }
+        }
     }
     
     //MARK: Filter Functions
