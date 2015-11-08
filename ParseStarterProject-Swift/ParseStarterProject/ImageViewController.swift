@@ -341,6 +341,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         if let viewController = viewController as? GalleryCollectionViewController {
             viewController.delegate = self
             self.getAllPhotoFolders()
+            viewController.localInstaGlamImages = self.localInstaGlamImages
         }
         return true
     }
