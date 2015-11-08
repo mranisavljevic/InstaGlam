@@ -12,6 +12,8 @@ import Photos
 
 class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GalleryCollectionViewControllerDelegate, UITabBarControllerDelegate {
     
+    //MARK: Local Variables
+    
     let imagePickerController = UIImagePickerController()
     
     let defaultImage = UIImage(named: "Logo")
@@ -26,15 +28,14 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     var localInstaGlamPhotoCollection: PHAssetCollection?
     
-    var allLocalPhotoCollections = [PHAssetCollection]() {
-        didSet {
-            print(allLocalPhotoCollections[0].localizedTitle)
-        }
-    }
-
+    var allLocalPhotoCollections = [PHAssetCollection]()
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var statusMessageTextField: UITextField!
     @IBOutlet weak var filterCollectionView: UICollectionView!
+    
+    
+    //MARK: Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +46,8 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         filterCollectionView.hidden = true
         self.tabBarController?.delegate = self
         getInstaGlamPhotoFolder()
+        getAllPhotoFolders { (complete) -> () in
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -58,6 +61,8 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    //MARK: IBActions
     
     @IBAction func imagePickerButton(sender: UIButton) {
         imagePickerController.allowsEditing = true
@@ -127,11 +132,14 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         applyFilters()
     }
     
+    //MARK: Photos Framework Setup
+    
     func getAllPhotoFolders(completion: (complete: Bool) -> ()) {
         let options = PHFetchOptions()
         let localCollections = PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.Album, subtype: PHAssetCollectionSubtype.Any, options: options)
         localCollections.enumerateObjectsUsingBlock({ (object, index, end) -> Void in
-        if let collection = object as? PHAssetCollection {
+            self.allLocalPhotoCollections = []
+            if let collection = object as? PHAssetCollection {
                 self.allLocalPhotoCollections.append(collection)
             }
         })
@@ -173,8 +181,8 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
             if let asset = placeholder {
                 let assets: [PHObjectPlaceholder] = [asset]
                 if let collection = self.localInstaGlamPhotoCollection {
-                    let addAsset = PHAssetCollectionChangeRequest(forAssetCollection: collection)
-                    addAsset?.addAssets(assets)
+                    let changeRequest = PHAssetCollectionChangeRequest(forAssetCollection: collection)
+                    changeRequest?.addAssets(assets)
                 }
             }
             }, completionHandler: { (created, error) -> Void in
@@ -187,6 +195,8 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
                 }
         })
     }
+    
+    //MARK: Filter Functions
     
     func applyFilters() {
         displayFilterOptions { (images, names) -> () in
@@ -265,6 +275,42 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
     }
     
+    //MARK: Photo Collection Selection
+    
+    func selectFolderAlert(completion: (selection: String) -> ()) {
+        var folderNames = ["Cloud Gallery"]
+        var selection = "Cancel"
+        let collections = self.allLocalPhotoCollections
+        for collection in collections {
+            folderNames.append(collection.localizedTitle!)
+        }
+        let actionSheet = UIAlertController(title: "Gallery", message: "Choose a gallery to view", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        for folder in folderNames {
+            let action = UIAlertAction(title: folder, style: .Default, handler: { (alert) -> Void in
+                selection = alert.title!
+                if let tabBar = self.tabBarController {
+                    if let gallery = tabBar.viewControllers![1] as? GalleryCollectionViewController {
+                        gallery.activeGallery = selection
+                        gallery.delegate = self
+                    }
+                    tabBar.selectedIndex = 1
+                }
+            })
+            actionSheet.addAction(action)
+        }
+        let cancelItem = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
+            return "Cancel"
+        }
+        actionSheet.addAction(cancelItem)
+        self.presentViewController(actionSheet, animated: true) { () -> Void in
+            
+        }
+        
+        completion(selection: selection)
+    }
+    
+    //MARK: ImagePickerController Delegate Methods
+    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         let resizedImage = UIImage.resizeImage(image, size: kImagePreferredSize)
         self.imageView.backgroundColor = UIColor.blackColor()
@@ -272,6 +318,19 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         self.filterCollectionView.hidden = true
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //MARK: TextField Delegate Methods
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    //MARK: CollectionView Delegate/Datasource Methods
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.filteredImages.count
@@ -295,26 +354,20 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         applyFilters()
     }
     
+    //MARK: TabBarController Delegate Methods
+    
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
         if let viewController = viewController as? GalleryCollectionViewController {
-            viewController.delegate = self
-            var folderNames = [String]()
-            let collections = self.allLocalPhotoCollections
-                for collection in collections {
-                    folderNames.append(collection.localizedTitle!)
-            }
+            selectFolderAlert({ (selection) -> () in
+                viewController.activeGallery = selection
+            })
+            return false
+        } else {
+            return true
         }
-        return true
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
+    //MARK: GalleryViewController Delegate Methods
     
     func didSelectItemInGalleryWithImage(image: UIImage) {
         self.imageView.backgroundColor = UIColor.blackColor()

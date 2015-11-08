@@ -1,5 +1,5 @@
 //
-//  UIImageExtensions.swift
+//  ClassExtensions.swift
 //  InstaGlam
 //
 //  Created by Miles Ranisavljevic on 11/3/15.

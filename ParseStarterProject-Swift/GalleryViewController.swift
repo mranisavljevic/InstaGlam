@@ -14,17 +14,25 @@ protocol GalleryCollectionViewControllerDelegate {
 
 class GalleryCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    //MARK: Local Variables
+    
     @IBOutlet weak var galleryCollectionView: UICollectionView!
     
     var imageStatuses = [Status]() {
         didSet {
-            self.galleryCollectionView.reloadData()
+//            if imageStatuses.count > 0 {
+//                self.galleryCollectionView.reloadData()
+//            }
         }
     }
     
     var activeGallery: String? {
         didSet {
-//           self.galleryTitleLabel.text = activeGallery
+            if activeGallery == "Cloud Gallery" {
+                fetchParseStatuses()
+            } else {
+                fetchParseStatuses()
+            }
         }
     }
     
@@ -35,6 +43,8 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
     }
     
     var delegate: GalleryCollectionViewControllerDelegate?
+    
+    //MARK: Lifecycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,8 +56,15 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         fetchParseStatuses()
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    //MARK: Gesture Recognizers
     
     func pinch(sender: UIPinchGestureRecognizer) {
         if let _ = sender.view {
@@ -58,16 +75,14 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
         sender.scale = 1.0
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
+    
+    //MARK: Parse API Methods
     
     func fetchParseStatuses() {
         ParseAPI.fetchPosts { (objects) -> () in
             if let statusArray = objects {
                 self.imageStatuses = statusArray
-                self.activeGallery = "Cloud Gallery"
+                self.galleryCollectionView.reloadData()
             } else {
                 let retryAlertController = UIAlertController(title: "Error", message: "Unable to load images.  Please retry.", preferredStyle: .Alert)
                 let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: { (action) -> Void in
@@ -80,6 +95,8 @@ class GalleryCollectionViewController: UIViewController, UICollectionViewDataSou
             }
         }
     }
+    
+    //MARK: CollectionView Delegate/Datasource/FlowLayout Methods
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.imageStatuses.count
