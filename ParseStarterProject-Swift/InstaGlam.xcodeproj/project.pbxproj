@@ -136,14 +136,30 @@
 			name = "System Frameworks";
 			sourceTree = "<group>";
 		};
-		9086E35E1BEAA93700B23B98 /* Controller */ = {
+		900C55E81BEED2F300A06803 /* ImageViewController */ = {
 			isa = PBXGroup;
 			children = (
 				90045B081BE8147500862357 /* ImageViewController.swift */,
+				90D313151BEC185900643BFF /* FilterCollectionViewCell.swift */,
+			);
+			name = ImageViewController;
+			sourceTree = "<group>";
+		};
+		900C55E91BEED30400A06803 /* GalleryViewController */ = {
+			isa = PBXGroup;
+			children = (
 				90B43DDD1BE8466900DD753E /* GalleryViewController.swift */,
 				9086E3611BEAA98000B23B98 /* GalleryCollectionViewCell.swift */,
 				900C55E41BEEA99400A06803 /* GalleryCollectionViewHeader.swift */,
-				90D313151BEC185900643BFF /* FilterCollectionViewCell.swift */,
+			);
+			name = GalleryViewController;
+			sourceTree = "<group>";
+		};
+		9086E35E1BEAA93700B23B98 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				900C55E81BEED2F300A06803 /* ImageViewController */,
+				900C55E91BEED30400A06803 /* GalleryViewController */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
